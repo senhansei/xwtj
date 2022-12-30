@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -74,11 +73,11 @@ public class ComServlet extends HttpServlet {
 			String dz = request.getParameter("dz");   
 				int flag=cBean.comUp("insert into lj(mc,dz  ) values('"+mc+"','"+dz+"'  ) ");
 				if(flag == Constant.SUCCESS){ 
-					request.setAttribute("message", "²Ù×÷³É¹¦£¡");
+					request.setAttribute("message", "ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½");
 					request.getRequestDispatcher("admin/lj/index.jsp").forward(request, response); 
 				}
 				else { 
-					request.setAttribute("message", "²Ù×÷Ê§°Ü£¡");
+					request.setAttribute("message", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½");
 					request.getRequestDispatcher("admin/lj/index.jsp").forward(request, response);  
 				}
 			 
@@ -89,11 +88,11 @@ public class ComServlet extends HttpServlet {
 			String dz = request.getParameter("dz");   
 			int flag=cBean.comUp("update lj set mc='"+mc+"',dz='"+dz+"' where id='"+id+"' ");
 			if(flag == Constant.SUCCESS){ 
-				request.setAttribute("message", "²Ù×÷³É¹¦£¡");
+				request.setAttribute("message", "ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½");
 				request.getRequestDispatcher("admin/lj/index.jsp").forward(request, response);  
 			}
 			else { 
-				request.setAttribute("message", "²Ù×÷Ê§°Ü£¡");
+				request.setAttribute("message", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½");
 				request.getRequestDispatcher("admin/lj/index.jsp").forward(request, response);  
 			}
 		}
@@ -101,11 +100,11 @@ public class ComServlet extends HttpServlet {
 			String id = request.getParameter("id");   
 			int flag=cBean.comUp("delete from lj where id='"+id+"' ");
 			if(flag == Constant.SUCCESS){ 
-				request.setAttribute("message", "²Ù×÷³É¹¦£¡");
+				request.setAttribute("message", "ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½");
 				request.getRequestDispatcher("admin/lj/index.jsp").forward(request, response);  
 			}
 			else { 
-				request.setAttribute("message", "²Ù×÷Ê§°Ü£¡");
+				request.setAttribute("message", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½");
 				request.getRequestDispatcher("admin/lj/index.jsp").forward(request, response);  
 			}
 		} 
@@ -113,11 +112,11 @@ public class ComServlet extends HttpServlet {
 			String id = request.getParameter("id");   
 			int flag=cBean.comUp("delete from keyword where id='"+id+"' ");
 			if(flag == Constant.SUCCESS){ 
-				request.setAttribute("message", "²Ù×÷³É¹¦£¡");
+				request.setAttribute("message", "ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½");
 				request.getRequestDispatcher("member/ss/index.jsp").forward(request, response);  
 			}
 			else { 
-				request.setAttribute("message", "²Ù×÷Ê§°Ü£¡");
+				request.setAttribute("message", "ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ü£ï¿½");
 				request.getRequestDispatcher("member/ss/index.jsp").forward(request, response);  
 			}
 		} 

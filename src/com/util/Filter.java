@@ -1,14 +1,14 @@
 package com.util;
 /**
- * 
- * HTML·ûºÅ¹ıÂËÀà
+ *
+ * HTMLç¬¦å·è¿‡æ»¤ç±»
  * @author Administrator
  *
  */
 public final class Filter {
 
 	public Filter(){
-		
+
 	}
 	public static String escapeHTMLTags( String input ) {
 
@@ -32,7 +32,7 @@ public final class Filter {
 				buf.append( ch );
 			}
 		}
-			return buf.toString();
+		return buf.toString();
 	}
-	
+
 }

@@ -12,7 +12,7 @@ import com.util.DBO;
 import com.util.MD5;
 
 /**
- * Ç°Ì¨»áÔ±µÇÂ½ ×¢²á ĞŞ¸Ä×ÊÁÏ ÕÒ»ØÃÜÂë
+ * å‰å°ä¼šå‘˜ç™»é™† æ³¨å†Œ ä¿®æ”¹èµ„æ–™ æ‰¾å›å¯†ç 
  * @author Administrator
  *
  */
@@ -22,43 +22,43 @@ public class MemberBean {
 	private List list;
 	private ResultSet rs;
 	private String date=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-	
-	
+
+
 	/****************************************************************
-	 * »áÔ±×¢²á ÑéÖ¤¸öÈË ÆóÒµ»áÔ±Í¨ÓÃ²¿·Ö
-	 * 
+	 * ä¼šå‘˜æ³¨å†Œ éªŒè¯ä¸ªäºº ä¼ä¸šä¼šå‘˜é€šç”¨éƒ¨åˆ†
+	 *
 	 * @return
 	 ********************************************************************/
 
-//  ¼ì²éÊÇ·ñÖØÃû
-    public int checkRegName(String username){
-    	String sql = "select * from member where username='"+username+"'";
-    	DBO dbo = new DBO();
+//  æ£€æŸ¥æ˜¯å¦é‡å
+	public int checkRegName(String username){
+		String sql = "select * from member where username='"+username+"'";
+		DBO dbo = new DBO();
 		dbo.open();
 		try{
-			
-				rs = dbo.executeQuery(sql);
-				if(rs.next()){
-					return Constant.SAME_NAME;
-				}
-				else{
-					return Constant.SUCCESS;
-				}	
-							
+
+			rs = dbo.executeQuery(sql);
+			if(rs.next()){
+				return Constant.SAME_NAME;
+			}
+			else{
+				return Constant.SUCCESS;
+			}
+
 		}catch(Exception e){
 			e.printStackTrace();
 			return Constant.SYSTEM_ERROR;
 		}finally{
 			dbo.close();
 		}
-    }
+	}
 
 	/****************************************************************
-	 * »áÔ±ÃÜÂëĞŞ¸Ä µÇÂ½ µÇÂ½ĞÅÏ¢ĞŞ¸ÄÍ¨ÓÃ²¿·Ö
-	 * 
+	 * ä¼šå‘˜å¯†ç ä¿®æ”¹ ç™»é™† ç™»é™†ä¿¡æ¯ä¿®æ”¹é€šç”¨éƒ¨åˆ†
+	 *
 	 * @return
 	 ********************************************************************/
-//	»áÔ±ĞŞ¸ÄÃÜÂë
+//	ä¼šå‘˜ä¿®æ”¹å¯†ç 
 	public int editPassword(String username,String oldpwd,String newpwd){
 		String sql="select * from member where username = '"+username+"' and password = '"+oldpwd+"'";
 		String sql2="update member set password = '"+newpwd+"' where username = '"+username+"'";
@@ -85,7 +85,7 @@ public class MemberBean {
 			dbo.close();
 		}
 	}
-//	»áÔ±µÇÂ½
+	//	ä¼šå‘˜ç™»é™†
 	public int memberLogin(String username,String password,String type){
 		password=MD5.MD5(password);
 		String sql = "select password from member where username='"+username+"' and type='"+type+"' and ifuse='1' ";
@@ -94,7 +94,7 @@ public class MemberBean {
 		dbo.open();
 		try{
 			rs = dbo.executeQuery(sql);
-			if(rs.next()){//Èç¹ûÓĞ¸ÃÓÃ»§Ãû
+			if(rs.next()){//å¦‚æœæœ‰è¯¥ç”¨æˆ·å
 				String str = rs.getString("password");
 				if(str.trim().equals(password)){
 					//dbo.executeUpdate(sql2);
@@ -104,16 +104,16 @@ public class MemberBean {
 					return Constant.PASSWORD_ERROR;
 				}
 			}
-			else{//Èç¹ûÃ»ÓĞ
+			else{//å¦‚æœæ²¡æœ‰
 				return Constant.NAME_ERROR;
 			}
 		}catch(Exception e){
 			return Constant.SYSTEM_ERROR;
 		}finally{
 			dbo.close();
-		}		
+		}
 	}
-//	µÇÂ½ĞÅÏ¢
+	//	ç™»é™†ä¿¡æ¯
 	public String getLastTimeIP(String username){
 		String sql = "select lasttime,lastip from member where username='"+username+"'";
 		DBO dbo = new DBO();
@@ -127,9 +127,9 @@ public class MemberBean {
 			return null;
 		}finally{
 			dbo.close();
-		}	
+		}
 	}
-	//¸üĞÂµÇÂ½ĞÅÏ¢
+	//æ›´æ–°ç™»é™†ä¿¡æ¯
 	public int upmemberLogin(String username,String lastip ){
 		String sql = "update member set logintimes=logintimes+1,lasttime='"+date+"',lastip='"+lastip+"' where username='"+username+"' ";
 		DBO dbo = new DBO();
@@ -144,9 +144,9 @@ public class MemberBean {
 			return Constant.SYSTEM_ERROR;
 		}finally{
 			dbo.close();
-		}		
+		}
 	}
-	//µÇÂ½´ÎÊı ±¾´ÎµÇÂ½Ê±¼ä
+	//ç™»é™†æ¬¡æ•° æœ¬æ¬¡ç™»é™†æ—¶é—´
 	public String getLogintimes(String username){
 		String sql = "select lasttime,logintimes from member where username='"+username+"'";
 		DBO dbo = new DBO();
@@ -160,19 +160,19 @@ public class MemberBean {
 			return null;
 		}finally{
 			dbo.close();
-		}	
+		}
 	}
 	/****************************************************************
-	 * ¸öÈË»áÔ±×¢²á ĞŞ¸Ä×ÊÁÏ µÇÂ½ ÕÒ»ØÃÜÂë
-	 * 
+	 * ä¸ªäººä¼šå‘˜æ³¨å†Œ ä¿®æ”¹èµ„æ–™ ç™»é™† æ‰¾å›å¯†ç 
+	 *
 	 * @return
 	 ********************************************************************/
-	//¸öÈË»áÔ±×¢²á
+	//ä¸ªäººä¼šå‘˜æ³¨å†Œ
 	public int personReg(String username,String password,String type,String realname,String sex,String bir,
-			String sheng,String city,String telphone,String email,String question,String answer,String lastip,int off,String address){
+						 String sheng,String city,String telphone,String email,String question,String answer,String lastip,int off,String address){
 		password=MD5.MD5(password);
 		String sql = "insert into member(username,password,type,regtime,ifuse,logintimes,lasttime,lastip)" +
-		" values('"+username+"','"+password+"','"+type+"','"+date+"','"+off+"','0','"+date+"','"+lastip+"') ";
+				" values('"+username+"','"+password+"','"+type+"','"+date+"','"+off+"','0','"+date+"','"+lastip+"') ";
 		DBO dbo = new DBO();
 		dbo.open();
 		try{
@@ -182,7 +182,7 @@ public class MemberBean {
 				rs.next();
 				int mid = rs.getInt(1);
 				String sql2 = "insert into pmember(mid,realname,sex,bir,sheng,city,telphone,email,question,answer,address)" +
-								"values('"+mid+"','"+realname+"','"+sex+"','"+bir+"','"+sheng+"','"+city+"','"+telphone+"','"+email+"','"+question+"','"+answer+"','"+address+"') ";
+						"values('"+mid+"','"+realname+"','"+sex+"','"+bir+"','"+sheng+"','"+city+"','"+telphone+"','"+email+"','"+question+"','"+answer+"','"+address+"') ";
 				int j = dbo.executeUpdate(sql2);
 				if(j == 1)
 					return Constant.SUCCESS;
@@ -196,10 +196,10 @@ public class MemberBean {
 			return Constant.SYSTEM_ERROR;
 		}finally{
 			dbo.close();
-		}		
+		}
 	}
-	
-	//Ä³¸öÈË»áÔ±×ÊÁÏ
+
+	//æŸä¸ªäººä¼šå‘˜èµ„æ–™
 	public List getRegInfo(String username){
 		String sql = "select * from pmember where mid=(select id from member where username='"+username+"') ";
 		DBO dbo = new DBO();
@@ -225,12 +225,12 @@ public class MemberBean {
 			return list;
 		}finally{
 			dbo.close();
-		}	
+		}
 	}
-	//¸öÈË»áÔ±ĞŞ¸Ä×ÊÁÏ
-	public int uppersonReg(String username,String realname,String sex,String bir,String sheng,String city,String telphone,String email,String question,String answer,String address){		
+	//ä¸ªäººä¼šå‘˜ä¿®æ”¹èµ„æ–™
+	public int uppersonReg(String username,String realname,String sex,String bir,String sheng,String city,String telphone,String email,String question,String answer,String address){
 		String sql = "select id from member where username='"+username+"'";
-		DBO dbo = new DBO(); 
+		DBO dbo = new DBO();
 		dbo.open();
 		try{
 			rs = dbo.executeQuery(sql);
@@ -251,20 +251,20 @@ public class MemberBean {
 			return Constant.SYSTEM_ERROR;
 		}finally{
 			dbo.close();
-		}		
+		}
 	}
-	
+
 	/****************************************************************
-	 * ÆóÒµ»áÔ±×¢²á ĞŞ¸Ä×ÊÁÏ µÇÂ½ ÕÒ»ØÃÜÂë
-	 * 
+	 * ä¼ä¸šä¼šå‘˜æ³¨å†Œ ä¿®æ”¹èµ„æ–™ ç™»é™† æ‰¾å›å¯†ç 
+	 *
 	 * @return
 	 ********************************************************************/
-	//ÆóÒµ»áÔ±×¢²á
+	//ä¼ä¸šä¼šå‘˜æ³¨å†Œ
 	public int coReg(String username,String password,String type,String coname,String address,String postnum,
-			String tel,String email,String question,String answer,String intro,String lastip,int off){
+					 String tel,String email,String question,String answer,String intro,String lastip,int off){
 		password=MD5.MD5(password);
 		String sql = "insert into member(username,password,type,regtime,ifuse,logintimes,lasttime,lastip)" +
-		" values('"+username+"','"+password+"','"+type+"','"+date+"','"+off+"','0','"+date+"','"+lastip+"') ";
+				" values('"+username+"','"+password+"','"+type+"','"+date+"','"+off+"','0','"+date+"','"+lastip+"') ";
 		DBO dbo = new DBO();
 		dbo.open();
 		try{
@@ -274,7 +274,7 @@ public class MemberBean {
 				rs.next();
 				int mid = rs.getInt(1);
 				String sql2 = "insert into cmember(mid,coname,address,postnum,tel,email,question,answer,intro)" +
-								"values('"+mid+"','"+coname+"','"+address+"','"+postnum+"','"+tel+"','"+email+"','"+question+"','"+answer+"','"+intro+"') ";
+						"values('"+mid+"','"+coname+"','"+address+"','"+postnum+"','"+tel+"','"+email+"','"+question+"','"+answer+"','"+intro+"') ";
 				int j = dbo.executeUpdate(sql2);
 				if(j == 1)
 					return Constant.SUCCESS;
@@ -288,9 +288,9 @@ public class MemberBean {
 			return Constant.SYSTEM_ERROR;
 		}finally{
 			dbo.close();
-		}		
+		}
 	}
-	//	Ä³ÆóÒµ»áÔ±×ÊÁÏ
+	//	æŸä¼ä¸šä¼šå‘˜èµ„æ–™
 	public List getCoRegInfo(String username){
 		String sql = "select * from cmember where mid=(select id from member where username='"+username+"') ";
 		DBO dbo = new DBO();
@@ -314,12 +314,12 @@ public class MemberBean {
 			return list;
 		}finally{
 			dbo.close();
-		}	
+		}
 	}
-	//ÆóÒµ»áÔ±ĞŞ¸Ä×ÊÁÏ
-	public int upCoReg(String username,String coname,String address,String postnum,String tel,String email,String question,String answer,String intro){		
+	//ä¼ä¸šä¼šå‘˜ä¿®æ”¹èµ„æ–™
+	public int upCoReg(String username,String coname,String address,String postnum,String tel,String email,String question,String answer,String intro){
 		String sql = "select id from member where username='"+username+"'";
-		DBO dbo = new DBO(); 
+		DBO dbo = new DBO();
 		dbo.open();
 		try{
 			rs = dbo.executeQuery(sql);
@@ -340,7 +340,7 @@ public class MemberBean {
 			return Constant.SYSTEM_ERROR;
 		}finally{
 			dbo.close();
-		}		
+		}
 	}
 	public int findPwd(String username){
 		String sql="select id from member where username='"+username+"'";
@@ -359,7 +359,7 @@ public class MemberBean {
 			return 0;
 		}finally{
 			dbo.close();
-		}		
+		}
 	}
 	public String returnPwd(String username,String question,String answer,String type){
 		int i=this.findPwd(username);
@@ -394,13 +394,13 @@ public class MemberBean {
 				return "error";
 			}finally{
 				dbo.close();
-			}		
+			}
 		}
 		else{
 			return "nameerror";
 		}
 	}
-	//¸öÈË»áÔ±¼òÀú¹ÜÀí
+	//ä¸ªäººä¼šå‘˜ç®€å†ç®¡ç†
 	public int upJianLi(String member,String picurl,String mname,String sex,String age,String school,String bir,String address,String linkman,String tel,String email,String intro){
 		String sql = "select * from resume where member='"+member+"'";
 		String upsql = "update resume set picurl='"+picurl+"',mname='"+mname+"',sex='"+sex+"',age='"+age+"',school='"+school+"',bir='"+bir+"',address='"+address+"',linkman='"+linkman+"',tel='"+tel+"',email='"+email+"',intro='"+intro+"' where member='"+member+"'";
@@ -429,9 +429,9 @@ public class MemberBean {
 			return 0;
 		}finally{
 			dbo.close();
-		}		
+		}
 	}
-	//²éÑ¯¸öÈË¼òÀú
+	//æŸ¥è¯¢ä¸ªäººç®€å†
 	public List getResume(String member){
 		String sql = "select * from resume where member='"+member+"'";
 		DBO dbo = new DBO();
@@ -458,9 +458,9 @@ public class MemberBean {
 			return list;
 		}finally{
 			dbo.close();
-		}	
+		}
 	}
-	//Ê×Ò³7¸ö×îĞÂ×¢²á»áÔ±ÕÕÆ¬
+	//é¦–é¡µ7ä¸ªæœ€æ–°æ³¨å†Œä¼šå‘˜ç…§ç‰‡
 	public List getTop7(){
 		String sql = "select top 7 picurl,member from resume";
 		DBO dbo = new DBO();
@@ -480,6 +480,6 @@ public class MemberBean {
 			return list;
 		}finally{
 			dbo.close();
-		}	
+		}
 	}
 }

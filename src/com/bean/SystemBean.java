@@ -1,7 +1,7 @@
 package com.bean;
 
 /**
- * 系统核心设置
+ * 系统蹕褎狮變
  * @author Administrator
  *
  */
@@ -18,7 +18,7 @@ public class SystemBean {
 
 	private List list;
 	private ResultSet rs;
-	
+
 	//update system infomation
 	public int updateSystem(String sql){
 		DBO dbo = new DBO();
@@ -36,7 +36,7 @@ public class SystemBean {
 			dbo.close();
 		}
 	}
-	
+
 	//get site infomation
 	public List getSystem(){
 		String sql = "select * from fz_system ";
@@ -64,7 +64,7 @@ public class SystemBean {
 			dbo.close();
 		}
 	}
-	
+
 	//get site name
 	public List getSiteInfo(){
 		String sql = "select * from fz_system ";
@@ -91,7 +91,7 @@ public class SystemBean {
 			dbo.close();
 		}
 	}
-	
+
 	//get system dir
 	public String getDir(){
 		String sql = "select dir from fz_system ";
@@ -109,5 +109,5 @@ public class SystemBean {
 			dbo.close();
 		}
 	}
-	 
+
 }

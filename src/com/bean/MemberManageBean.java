@@ -11,9 +11,9 @@ import com.util.Constant;
 import com.util.DBO;
 
 /**
- * 
- * ÍøÕ¾ºóÌ¨¹ÜÀí×¢²á»áÔ± ²éÑ¯ ¶³½á É¾³ı»áÔ±
- */	
+ *
+ * ç½‘ç«™åå°ç®¡ç†æ³¨å†Œä¼šå‘˜ æŸ¥è¯¢ å†»ç»“ åˆ é™¤ä¼šå‘˜
+ */
 
 public class MemberManageBean {
 
@@ -24,283 +24,283 @@ public class MemberManageBean {
 	private int qq = 0;
 	private String sql="select count(*) from member where type='person'";
 	private String sql2="select * from member where type='person' order by id desc ";
-	//ÉùÃ÷Ê±¼ä±äÁ¿
+	//å£°æ˜æ—¶é—´å˜é‡
 	String date1=new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 	String date=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-	
-	//·ÖÒ³²éÑ¯ËùÓĞ¸öÈË»áÔ±
+
+	//åˆ†é¡µæŸ¥è¯¢æ‰€æœ‰ä¸ªäººä¼šå‘˜
 	public void setEVERYPAGENUM(int EVERYPAGENUM){
-    	this.EVERYPAGENUM=EVERYPAGENUM;
-    }
-    public int getMessageCount() { //µÃµ½ĞÅÏ¢×ÜÊı
-       DBO dbo=new DBO();
-       dbo.open();
-        try { 
-            rs = dbo.executeQuery(sql);
-            rs.next();
-            count = rs.getInt(1);
-            return count;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return -1;
-        } finally {
-            dbo.close();
-        }
-    }
-    public int getPageCount() { //µÃµ½¹²¶àÉÙÒ³£¨¸ù¾İÃ¿Ò³ÒªÏÔÊ¾¼¸ÌõĞÅÏ¢£©
-        if (count % EVERYPAGENUM == 0) {
-            return count / EVERYPAGENUM;
-        } else {
-            return count / EVERYPAGENUM + 1;
-        }
-    }
-    public List getMessage(int page) { //µÃµ½Ã¿Ò³ÒªÏÔÊ¾µÄĞÅÏ¢
-        DBO dbo=new DBO();
-        dbo.open();
-        List list = new ArrayList();
-        try {
-            rs = dbo.executeQuery(sql2);
-            for (int i = 0; i < (page - 1) * EVERYPAGENUM; i++) {
-                rs.next();
-            }
-            for (int t = 0; t < EVERYPAGENUM; t++) {
-                if (rs.next()) {
-                    qq++;
-                    List list2=new ArrayList();
-                    list2.add(rs.getString("id"));
-    				list2.add(rs.getString("username"));
-    				list2.add(rs.getString("regtime"));
-    				list2.add(rs.getString("ifuse"));
-    				list2.add(rs.getString("logintimes"));
-    				list2.add(rs.getString("lasttime"));
-    				list2.add(rs.getString("lastip"));
-    				list.add(list2);
-                } else {
-                    break; //¼õÉÙ¿ÕÑ­»·µÄÊ±¼ä
-                }
-            }
-            return list;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return null;
-        } finally {
-            dbo.close();
-        }
-    }
-    
-    ///ËùÓĞÆóÒµ»áÔ±////////////////////
-    public int getMessageCountCO() { //µÃµ½ĞÅÏ¢×ÜÊı
-        DBO dbo=new DBO();
-        dbo.open();
-         try { 
-             rs = dbo.executeQuery("select count(*) from member where type='co'");
-             rs.next();
-             count = rs.getInt(1);
-             return count;
-         } catch (SQLException ex) {
-             ex.printStackTrace();
-             return -1;
-         } finally {
-             dbo.close();
-         }
-     }
-     public List getMessageCO(int page) { //µÃµ½Ã¿Ò³ÒªÏÔÊ¾µÄĞÅÏ¢
-         DBO dbo=new DBO();
-         dbo.open();
-         List list = new ArrayList();
-         try {
-             rs = dbo.executeQuery("select * from member where type='co' order by id desc ");
-             for (int i = 0; i < (page - 1) * EVERYPAGENUM; i++) {
-                 rs.next();
-             }
-             for (int t = 0; t < EVERYPAGENUM; t++) {
-                 if (rs.next()) {
-                     qq++;
-                    List list2=new ArrayList();
-                    list2.add(rs.getString("id"));
-     				list2.add(rs.getString("username"));
-     				list2.add(rs.getString("regtime"));
-     				list2.add(rs.getString("ifuse"));
-     				list2.add(rs.getString("logintimes"));
-     				list2.add(rs.getString("lasttime"));
-     				list2.add(rs.getString("lastip"));
-     				list.add(list2);
-                 } else {
-                     break; //¼õÉÙ¿ÕÑ­»·µÄÊ±¼ä
-                 }
-             }
-             return list;
-         } catch (SQLException ex) {
-             ex.printStackTrace();
-             return null;
-         } finally {
-             dbo.close();
-         }
-     }
-     
-     //ËùÓĞÔÚÓÃ»áÔ±
-     public int getMessageCountUS() { //µÃµ½ĞÅÏ¢×ÜÊı
-         DBO dbo=new DBO();
-         dbo.open();
-          try { 
-              rs = dbo.executeQuery("select count(*) from member where ifuse='1'");
-              rs.next();
-              count = rs.getInt(1);
-              return count;
-          } catch (SQLException ex) {
-              ex.printStackTrace();
-              return -1;
-          } finally {
-              dbo.close();
-          }
-      }
-      public List getMessageUS(int page) { //µÃµ½Ã¿Ò³ÒªÏÔÊ¾µÄĞÅÏ¢
-          DBO dbo=new DBO();
-          dbo.open();
-          List list = new ArrayList();
-          try {
-              rs = dbo.executeQuery("select * from member where ifuse='1' order by id desc ");
-              for (int i = 0; i < (page - 1) * EVERYPAGENUM; i++) {
-                  rs.next();
-              }
-              for (int t = 0; t < EVERYPAGENUM; t++) {
-                  if (rs.next()) {
-                      qq++;
-                     List list2=new ArrayList();
-                     list2.add(rs.getString("id"));
-      				list2.add(rs.getString("username"));
-      				list2.add(rs.getString("regtime"));
-      				list2.add(rs.getString("ifuse"));
-      				list2.add(rs.getString("logintimes"));
-      				list2.add(rs.getString("lasttime"));
-      				list2.add(rs.getString("lastip"));
-      				list2.add(rs.getString("type"));
-      				list.add(list2);
-                  } else {
-                      break; //¼õÉÙ¿ÕÑ­»·µÄÊ±¼ä
-                  }
-              }
-              return list;
-          } catch (SQLException ex) {
-              ex.printStackTrace();
-              return null;
-          } finally {
-              dbo.close();
-          }
-      }
-//    ËùÓĞ¶³½á»áÔ±
-      public int getMessageCountCL() { //µÃµ½ĞÅÏ¢×ÜÊı
-          DBO dbo=new DBO();
-          dbo.open();
-           try { 
-               rs = dbo.executeQuery("select count(*) from member where ifuse='0'");
-               rs.next();
-               count = rs.getInt(1);
-               return count;
-           } catch (SQLException ex) {
-               ex.printStackTrace();
-               return -1;
-           } finally {
-               dbo.close();
-           }
-       }
-       public List getMessageCL(int page) { //µÃµ½Ã¿Ò³ÒªÏÔÊ¾µÄĞÅÏ¢
-           DBO dbo=new DBO();
-           dbo.open();
-           List list = new ArrayList();
-           try {
-               rs = dbo.executeQuery("select * from member where ifuse='0' order by id desc ");
-               for (int i = 0; i < (page - 1) * EVERYPAGENUM; i++) {
-                   rs.next();
-               }
-               for (int t = 0; t < EVERYPAGENUM; t++) {
-                   if (rs.next()) {
-                       qq++;
-                      List list2=new ArrayList();
-                      list2.add(rs.getString("id"));
-       				list2.add(rs.getString("username"));
-       				list2.add(rs.getString("regtime"));
-       				list2.add(rs.getString("ifuse"));
-       				list2.add(rs.getString("logintimes"));
-       				list2.add(rs.getString("lasttime"));
-       				list2.add(rs.getString("lastip"));
-       				list2.add(rs.getString("type"));
-       				list.add(list2);
-                   } else {
-                       break; //¼õÉÙ¿ÕÑ­»·µÄÊ±¼ä
-                   }
-               }
-               return list;
-           } catch (SQLException ex) {
-               ex.printStackTrace();
-               return null;
-           } finally {
-               dbo.close();
-           }
-       }
-//     ½ñÈÕ×¢²á»áÔ±
-       public int getMessageCountTODAY() { //µÃµ½ĞÅÏ¢×ÜÊı
-           DBO dbo=new DBO();
-           dbo.open();
-            try { 
-                rs = dbo.executeQuery("select count(*) from member where regtime between '"+date1+"' and '"+date+"'");
-                rs.next();
-                count = rs.getInt(1);
-                return count;
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                return -1;
-            } finally {
-                dbo.close();
-            }
-        }
-        public List getMessageTODAY(int page) { //µÃµ½Ã¿Ò³ÒªÏÔÊ¾µÄĞÅÏ¢
-            DBO dbo=new DBO();
-            dbo.open();
-            List list = new ArrayList();
-            try {
-                rs = dbo.executeQuery("select * from member where regtime between '"+date1+"' and '"+date+"' order by id desc ");
-                for (int i = 0; i < (page - 1) * EVERYPAGENUM; i++) {
-                    rs.next();
-                }
-                for (int t = 0; t < EVERYPAGENUM; t++) {
-                    if (rs.next()) {
-                        qq++;
-                       List list2=new ArrayList();
-                       list2.add(rs.getString("id"));
-        				list2.add(rs.getString("username"));
-        				list2.add(rs.getString("regtime"));
-        				list2.add(rs.getString("ifuse"));
-        				list2.add(rs.getString("logintimes"));
-        				list2.add(rs.getString("lasttime"));
-        				list2.add(rs.getString("lastip"));
-        				list2.add(rs.getString("type"));
-        				list.add(list2);
-                    } else {
-                        break; //¼õÉÙ¿ÕÑ­»·µÄÊ±¼ä
-                    }
-                }
-                return list;
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-                return null;
-            } finally {
-                dbo.close();
-            }
-        }
-   
-    /*********************************************************************************************************************************
-     * É¾³ı ¶³½á»áÔ±
-     * @param id
-     * @return
-     *********************************************************************/
-    //  É¾³ı»áÔ±
+		this.EVERYPAGENUM=EVERYPAGENUM;
+	}
+	public int getMessageCount() { //å¾—åˆ°ä¿¡æ¯æ€»æ•°
+		DBO dbo=new DBO();
+		dbo.open();
+		try {
+			rs = dbo.executeQuery(sql);
+			rs.next();
+			count = rs.getInt(1);
+			return count;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return -1;
+		} finally {
+			dbo.close();
+		}
+	}
+	public int getPageCount() { //å¾—åˆ°å…±å¤šå°‘é¡µï¼ˆæ ¹æ®æ¯é¡µè¦æ˜¾ç¤ºå‡ æ¡ä¿¡æ¯ï¼‰
+		if (count % EVERYPAGENUM == 0) {
+			return count / EVERYPAGENUM;
+		} else {
+			return count / EVERYPAGENUM + 1;
+		}
+	}
+	public List getMessage(int page) { //å¾—åˆ°æ¯é¡µè¦æ˜¾ç¤ºçš„ä¿¡æ¯
+		DBO dbo=new DBO();
+		dbo.open();
+		List list = new ArrayList();
+		try {
+			rs = dbo.executeQuery(sql2);
+			for (int i = 0; i < (page - 1) * EVERYPAGENUM; i++) {
+				rs.next();
+			}
+			for (int t = 0; t < EVERYPAGENUM; t++) {
+				if (rs.next()) {
+					qq++;
+					List list2=new ArrayList();
+					list2.add(rs.getString("id"));
+					list2.add(rs.getString("username"));
+					list2.add(rs.getString("regtime"));
+					list2.add(rs.getString("ifuse"));
+					list2.add(rs.getString("logintimes"));
+					list2.add(rs.getString("lasttime"));
+					list2.add(rs.getString("lastip"));
+					list.add(list2);
+				} else {
+					break; //å‡å°‘ç©ºå¾ªç¯çš„æ—¶é—´
+				}
+			}
+			return list;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		} finally {
+			dbo.close();
+		}
+	}
+
+	///æ‰€æœ‰ä¼ä¸šä¼šå‘˜////////////////////
+	public int getMessageCountCO() { //å¾—åˆ°ä¿¡æ¯æ€»æ•°
+		DBO dbo=new DBO();
+		dbo.open();
+		try {
+			rs = dbo.executeQuery("select count(*) from member where type='co'");
+			rs.next();
+			count = rs.getInt(1);
+			return count;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return -1;
+		} finally {
+			dbo.close();
+		}
+	}
+	public List getMessageCO(int page) { //å¾—åˆ°æ¯é¡µè¦æ˜¾ç¤ºçš„ä¿¡æ¯
+		DBO dbo=new DBO();
+		dbo.open();
+		List list = new ArrayList();
+		try {
+			rs = dbo.executeQuery("select * from member where type='co' order by id desc ");
+			for (int i = 0; i < (page - 1) * EVERYPAGENUM; i++) {
+				rs.next();
+			}
+			for (int t = 0; t < EVERYPAGENUM; t++) {
+				if (rs.next()) {
+					qq++;
+					List list2=new ArrayList();
+					list2.add(rs.getString("id"));
+					list2.add(rs.getString("username"));
+					list2.add(rs.getString("regtime"));
+					list2.add(rs.getString("ifuse"));
+					list2.add(rs.getString("logintimes"));
+					list2.add(rs.getString("lasttime"));
+					list2.add(rs.getString("lastip"));
+					list.add(list2);
+				} else {
+					break; //å‡å°‘ç©ºå¾ªç¯çš„æ—¶é—´
+				}
+			}
+			return list;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		} finally {
+			dbo.close();
+		}
+	}
+
+	//æ‰€æœ‰åœ¨ç”¨ä¼šå‘˜
+	public int getMessageCountUS() { //å¾—åˆ°ä¿¡æ¯æ€»æ•°
+		DBO dbo=new DBO();
+		dbo.open();
+		try {
+			rs = dbo.executeQuery("select count(*) from member where ifuse='1'");
+			rs.next();
+			count = rs.getInt(1);
+			return count;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return -1;
+		} finally {
+			dbo.close();
+		}
+	}
+	public List getMessageUS(int page) { //å¾—åˆ°æ¯é¡µè¦æ˜¾ç¤ºçš„ä¿¡æ¯
+		DBO dbo=new DBO();
+		dbo.open();
+		List list = new ArrayList();
+		try {
+			rs = dbo.executeQuery("select * from member where ifuse='1' order by id desc ");
+			for (int i = 0; i < (page - 1) * EVERYPAGENUM; i++) {
+				rs.next();
+			}
+			for (int t = 0; t < EVERYPAGENUM; t++) {
+				if (rs.next()) {
+					qq++;
+					List list2=new ArrayList();
+					list2.add(rs.getString("id"));
+					list2.add(rs.getString("username"));
+					list2.add(rs.getString("regtime"));
+					list2.add(rs.getString("ifuse"));
+					list2.add(rs.getString("logintimes"));
+					list2.add(rs.getString("lasttime"));
+					list2.add(rs.getString("lastip"));
+					list2.add(rs.getString("type"));
+					list.add(list2);
+				} else {
+					break; //å‡å°‘ç©ºå¾ªç¯çš„æ—¶é—´
+				}
+			}
+			return list;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		} finally {
+			dbo.close();
+		}
+	}
+	//    æ‰€æœ‰å†»ç»“ä¼šå‘˜
+	public int getMessageCountCL() { //å¾—åˆ°ä¿¡æ¯æ€»æ•°
+		DBO dbo=new DBO();
+		dbo.open();
+		try {
+			rs = dbo.executeQuery("select count(*) from member where ifuse='0'");
+			rs.next();
+			count = rs.getInt(1);
+			return count;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return -1;
+		} finally {
+			dbo.close();
+		}
+	}
+	public List getMessageCL(int page) { //å¾—åˆ°æ¯é¡µè¦æ˜¾ç¤ºçš„ä¿¡æ¯
+		DBO dbo=new DBO();
+		dbo.open();
+		List list = new ArrayList();
+		try {
+			rs = dbo.executeQuery("select * from member where ifuse='0' order by id desc ");
+			for (int i = 0; i < (page - 1) * EVERYPAGENUM; i++) {
+				rs.next();
+			}
+			for (int t = 0; t < EVERYPAGENUM; t++) {
+				if (rs.next()) {
+					qq++;
+					List list2=new ArrayList();
+					list2.add(rs.getString("id"));
+					list2.add(rs.getString("username"));
+					list2.add(rs.getString("regtime"));
+					list2.add(rs.getString("ifuse"));
+					list2.add(rs.getString("logintimes"));
+					list2.add(rs.getString("lasttime"));
+					list2.add(rs.getString("lastip"));
+					list2.add(rs.getString("type"));
+					list.add(list2);
+				} else {
+					break; //å‡å°‘ç©ºå¾ªç¯çš„æ—¶é—´
+				}
+			}
+			return list;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		} finally {
+			dbo.close();
+		}
+	}
+	//     ä»Šæ—¥æ³¨å†Œä¼šå‘˜
+	public int getMessageCountTODAY() { //å¾—åˆ°ä¿¡æ¯æ€»æ•°
+		DBO dbo=new DBO();
+		dbo.open();
+		try {
+			rs = dbo.executeQuery("select count(*) from member where regtime between '"+date1+"' and '"+date+"'");
+			rs.next();
+			count = rs.getInt(1);
+			return count;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return -1;
+		} finally {
+			dbo.close();
+		}
+	}
+	public List getMessageTODAY(int page) { //å¾—åˆ°æ¯é¡µè¦æ˜¾ç¤ºçš„ä¿¡æ¯
+		DBO dbo=new DBO();
+		dbo.open();
+		List list = new ArrayList();
+		try {
+			rs = dbo.executeQuery("select * from member where regtime between '"+date1+"' and '"+date+"' order by id desc ");
+			for (int i = 0; i < (page - 1) * EVERYPAGENUM; i++) {
+				rs.next();
+			}
+			for (int t = 0; t < EVERYPAGENUM; t++) {
+				if (rs.next()) {
+					qq++;
+					List list2=new ArrayList();
+					list2.add(rs.getString("id"));
+					list2.add(rs.getString("username"));
+					list2.add(rs.getString("regtime"));
+					list2.add(rs.getString("ifuse"));
+					list2.add(rs.getString("logintimes"));
+					list2.add(rs.getString("lasttime"));
+					list2.add(rs.getString("lastip"));
+					list2.add(rs.getString("type"));
+					list.add(list2);
+				} else {
+					break; //å‡å°‘ç©ºå¾ªç¯çš„æ—¶é—´
+				}
+			}
+			return list;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		} finally {
+			dbo.close();
+		}
+	}
+
+	/*********************************************************************************************************************************
+	 * åˆ é™¤ å†»ç»“ä¼šå‘˜
+	 * @param id
+	 * @return
+	 *********************************************************************/
+	//  åˆ é™¤ä¼šå‘˜
 	public int delMember(int id[]){
 		DBO dbo=new DBO();
 		dbo.open();
 		try{
 			for(int i = 0;i<id.length;i++){
-				dbo.executeUpdate("delete from  member where  id = '"+id[i]+"'");	
+				dbo.executeUpdate("delete from  member where  id = '"+id[i]+"'");
 				dbo.executeUpdate("delete from  pmember where  mid = '"+id[i]+"'");
 				dbo.executeUpdate("delete from  cmember where  mid = '"+id[i]+"'");
 			}
@@ -312,7 +312,7 @@ public class MemberManageBean {
 			dbo.close();
 		}
 	}
-	//¶³½á»áÔ±
+	//å†»ç»“ä¼šå‘˜
 	public int closeMember(int id){
 		String sql = "select ifuse from member where id='"+id+"' ";
 		String sql2 = "update member set ifuse='0' where id='"+id+"'";
@@ -349,15 +349,15 @@ public class MemberManageBean {
 		}
 	}
 	/**********************************************************************
-     * ºóÌ¨²éÑ¯µ¥Ìõ¸öÈË ÆóÒµ»áÔ±ĞÅÏ¢ ²éÑ¯»áÔ±ÀàĞÍ
-     * @param id
-     * @return
-     *********************************************************************/
-    //ÒÔidÎªÌõ¼ş²éÑ¯»áÔ±ÀàĞÍ
-    public String getType(int id){
-    	String sql = "select type from member where id='"+id+"'";
-    	DBO dbo=new DBO();
-    	dbo.open();
+	 * åå°æŸ¥è¯¢å•æ¡ä¸ªäºº ä¼ä¸šä¼šå‘˜ä¿¡æ¯ æŸ¥è¯¢ä¼šå‘˜ç±»å‹
+	 * @param id
+	 * @return
+	 *********************************************************************/
+	//ä»¥idä¸ºæ¡ä»¶æŸ¥è¯¢ä¼šå‘˜ç±»å‹
+	public String getType(int id){
+		String sql = "select type from member where id='"+id+"'";
+		DBO dbo=new DBO();
+		dbo.open();
 		try{
 			rs = dbo.executeQuery(sql);
 			if(rs.next()){
@@ -372,9 +372,9 @@ public class MemberManageBean {
 		}finally{
 			dbo.close();
 		}
-    }
-    //ÒÔidÎªÌõ¼ş µ¥Ìõ»áÔ±µÇÂ½ĞÅÏ¢
-    public List getMemberLogin(int id){
+	}
+	//ä»¥idä¸ºæ¡ä»¶ å•æ¡ä¼šå‘˜ç™»é™†ä¿¡æ¯
+	public List getMemberLogin(int id){
 		String sql = "select * from member where id='"+id+"'";
 		DBO dbo=new DBO();
 		list = new ArrayList();
@@ -397,7 +397,7 @@ public class MemberManageBean {
 			dbo.close();
 		}
 	}
-	//ÒÔidÎªÌõ¼ş µ¥Ìõ¸öÈË»áÔ±ĞÅÏ¢
+	//ä»¥idä¸ºæ¡ä»¶ å•æ¡ä¸ªäººä¼šå‘˜ä¿¡æ¯
 	public List getPerSonMember(int id){
 		String sql = "select * from pmember where mid='"+id+"'";
 		DBO dbo=new DBO();
@@ -424,7 +424,7 @@ public class MemberManageBean {
 			dbo.close();
 		}
 	}
-//	ÒÔidÎªÌõ¼ş µ¥ÌõÆóÒµ»áÔ±ĞÅÏ¢
+	//	ä»¥idä¸ºæ¡ä»¶ å•æ¡ä¼ä¸šä¼šå‘˜ä¿¡æ¯
 	public List getCoMember(int id){
 		String sql = "select * from cmember where mid='"+id+"'";
 		DBO dbo=new DBO();
@@ -449,12 +449,12 @@ public class MemberManageBean {
 			dbo.close();
 		}
 	}
-	//////////////ÒÔÓÃ»§ÃûÎªÌõ¼ş²éÑ¯///////////////
-//	ÒÔÓÃ»§ÃûÎªÌõ¼ş²éÑ¯»áÔ±ÀàĞÍ
-    public String getType(String name){
-    	String sql = "select type from member where username='"+name+"'";
-    	DBO dbo=new DBO();
-    	dbo.open();
+	//////////////ä»¥ç”¨æˆ·åä¸ºæ¡ä»¶æŸ¥è¯¢///////////////
+//	ä»¥ç”¨æˆ·åä¸ºæ¡ä»¶æŸ¥è¯¢ä¼šå‘˜ç±»å‹
+	public String getType(String name){
+		String sql = "select type from member where username='"+name+"'";
+		DBO dbo=new DBO();
+		dbo.open();
 		try{
 			rs = dbo.executeQuery(sql);
 			if(rs.next()){
@@ -469,12 +469,12 @@ public class MemberManageBean {
 		}finally{
 			dbo.close();
 		}
-    }
-    //ÒÔÓÃ»§ÃûÎªÌõ¼ş²éÑ¯ÓÃ»§id£¬È»ºóÓÃidÀ´²éÑ¯»áÔ±ĞÅÏ¢ Ìø×ªµ½//ÒÔidÎªÌõ¼ş²éÑ¯»áÔ±ÀàĞÍ
-    public int getID(String name){
-    	String sql = "select id from member where username='"+name+"'";
-    	DBO dbo=new DBO();
-    	dbo.open();
+	}
+	//ä»¥ç”¨æˆ·åä¸ºæ¡ä»¶æŸ¥è¯¢ç”¨æˆ·idï¼Œç„¶åç”¨idæ¥æŸ¥è¯¢ä¼šå‘˜ä¿¡æ¯ è·³è½¬åˆ°//ä»¥idä¸ºæ¡ä»¶æŸ¥è¯¢ä¼šå‘˜ç±»å‹
+	public int getID(String name){
+		String sql = "select id from member where username='"+name+"'";
+		DBO dbo=new DBO();
+		dbo.open();
 		try{
 			rs = dbo.executeQuery(sql);
 			if(rs.next()){
@@ -489,13 +489,13 @@ public class MemberManageBean {
 		}finally{
 			dbo.close();
 		}
-    }
-//////////////ÒÔÓÃ»§Ãû idÎªÌõ¼ş²éÑ¯///////////////
-//	ÒÔÓÃ»§Ãû idÎªÌõ¼ş²éÑ¯»áÔ±ÀàĞÍ£¬È»ºóÓÃidÀ´²éÑ¯»áÔ±ĞÅÏ¢ Ìø×ªµ½//ÒÔidÎªÌõ¼ş²éÑ¯»áÔ±
-    public String getType(int id,String name){
-    	String sql = "select type from member where id='"+id+"' and username='"+name+"'";
-    	DBO dbo=new DBO();
-    	dbo.open();
+	}
+	//////////////ä»¥ç”¨æˆ·å idä¸ºæ¡ä»¶æŸ¥è¯¢///////////////
+//	ä»¥ç”¨æˆ·å idä¸ºæ¡ä»¶æŸ¥è¯¢ä¼šå‘˜ç±»å‹ï¼Œç„¶åç”¨idæ¥æŸ¥è¯¢ä¼šå‘˜ä¿¡æ¯ è·³è½¬åˆ°//ä»¥idä¸ºæ¡ä»¶æŸ¥è¯¢ä¼šå‘˜
+	public String getType(int id,String name){
+		String sql = "select type from member where id='"+id+"' and username='"+name+"'";
+		DBO dbo=new DBO();
+		dbo.open();
 		try{
 			rs = dbo.executeQuery(sql);
 			if(rs.next()){
@@ -510,27 +510,27 @@ public class MemberManageBean {
 		}finally{
 			dbo.close();
 		}
-    }
-    
-	/////////////////////°´×¢²áÊ±¼ä²éÑ¯/////////////////////
-    public List getMemberByTime(String stime,String etime){
-    	String sql = "select * from member where regtime between '"+stime+"' and '"+etime+" 23:59:59' ";
-    	DBO dbo=new DBO();
+	}
+
+	/////////////////////æŒ‰æ³¨å†Œæ—¶é—´æŸ¥è¯¢/////////////////////
+	public List getMemberByTime(String stime,String etime){
+		String sql = "select * from member where regtime between '"+stime+"' and '"+etime+" 23:59:59' ";
+		DBO dbo=new DBO();
 		list = new ArrayList();
 		dbo.open();
 		try{
 			rs = dbo.executeQuery(sql);
 			while(rs.next()){
 				List list2=new ArrayList();
-                list2.add(rs.getString("id"));
- 				list2.add(rs.getString("username"));
- 				list2.add(rs.getString("regtime"));
- 				list2.add(rs.getString("ifuse"));
- 				list2.add(rs.getString("logintimes"));
- 				list2.add(rs.getString("lasttime"));
- 				list2.add(rs.getString("lastip"));
- 				list2.add(rs.getString("type"));
- 				list.add(list2);
+				list2.add(rs.getString("id"));
+				list2.add(rs.getString("username"));
+				list2.add(rs.getString("regtime"));
+				list2.add(rs.getString("ifuse"));
+				list2.add(rs.getString("logintimes"));
+				list2.add(rs.getString("lasttime"));
+				list2.add(rs.getString("lastip"));
+				list2.add(rs.getString("type"));
+				list.add(list2);
 			}
 			return list;
 		}catch(Exception e){
@@ -539,5 +539,5 @@ public class MemberManageBean {
 		}finally{
 			dbo.close();
 		}
-    }
+	}
 }

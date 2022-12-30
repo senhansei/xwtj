@@ -1,8 +1,8 @@
 package com.bean;
 
 /**
- * ĞÂÎÅ¹ÜÀí
- * 
+ * æ–°é—»ç®¡ç†
+ *
  */
 import java.io.File;
 import java.sql.ResultSet;
@@ -20,75 +20,75 @@ public class NewsBean {
 	private String date=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
 	private List list;
 	private ResultSet rs = null;
-	
-	
-	//²»ÖÃ¶¥ĞÂÎÅ·ÖÒ³
+
+
+	//ä¸ç½®é¡¶æ–°é—»åˆ†é¡µ
 	private int EVERYPAGENUM = 2;
 	private int count = -1;
 	private int qq = 0;
 	private String sql="select count(*) from fz_news";
 	private String sql2="select * from fz_news order by id desc";
-	
-    public void setEVERYPAGENUM(int EVERYPAGENUM){
-    	this.EVERYPAGENUM=EVERYPAGENUM;
-    }
-    public int getMessageCount() { //µÃµ½ĞÅÏ¢×ÜÊı
-       DBO dbo=new DBO();
-       dbo.open();
-        try { 
-            rs = dbo.executeQuery(sql);
-            rs.next();
-            count = rs.getInt(1);
-            return count;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return -1;
-        } finally {
-            dbo.close();
-        }
-    }
-    public int getPageCount() { //µÃµ½¹²¶àÉÙÒ³£¨¸ù¾İÃ¿Ò³ÒªÏÔÊ¾¼¸ÌõĞÅÏ¢£©
-        if (count % EVERYPAGENUM == 0) {
-            return count / EVERYPAGENUM;
-        } else {
-            return count / EVERYPAGENUM + 1;
-        }
-    }
-    public List getMessage(int page) { //µÃµ½Ã¿Ò³ÒªÏÔÊ¾µÄĞÅÏ¢
-        DBO dbo=new DBO();
-        dbo.open();
-        List list = new ArrayList();
-        try {
-            rs = dbo.executeQuery(sql2);
-            for (int i = 0; i < (page - 1) * EVERYPAGENUM; i++) {
-                rs.next();
-            }
-            for (int t = 0; t < EVERYPAGENUM; t++) {
-                if (rs.next()) {
-                    qq++;
-                    List list2=new ArrayList();
-                    list2.add(rs.getString(1));
-    				list2.add(rs.getString(2));
-    				list2.add(rs.getString(3));
-    				list2.add(rs.getString(4));
-    				list2.add(rs.getString(5));
-    				list2.add(rs.getString(6));
-    				list2.add(rs.getString(7));
-    				list2.add(rs.getString(8));
-    				list.add(list2);
-                } else {
-                    break; //¼õÉÙ¿ÕÑ­»·µÄÊ±¼ä
-                }
-            }
-            return list;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return list;
-        } finally {
-            dbo.close();
-        }
-    }
-   
+
+	public void setEVERYPAGENUM(int EVERYPAGENUM){
+		this.EVERYPAGENUM=EVERYPAGENUM;
+	}
+	public int getMessageCount() { //å¾—åˆ°ä¿¡æ¯æ€»æ•°
+		DBO dbo=new DBO();
+		dbo.open();
+		try {
+			rs = dbo.executeQuery(sql);
+			rs.next();
+			count = rs.getInt(1);
+			return count;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return -1;
+		} finally {
+			dbo.close();
+		}
+	}
+	public int getPageCount() { //å¾—åˆ°å…±å¤šå°‘é¡µï¼ˆæ ¹æ®æ¯é¡µè¦æ˜¾ç¤ºå‡ æ¡ä¿¡æ¯ï¼‰
+		if (count % EVERYPAGENUM == 0) {
+			return count / EVERYPAGENUM;
+		} else {
+			return count / EVERYPAGENUM + 1;
+		}
+	}
+	public List getMessage(int page) { //å¾—åˆ°æ¯é¡µè¦æ˜¾ç¤ºçš„ä¿¡æ¯
+		DBO dbo=new DBO();
+		dbo.open();
+		List list = new ArrayList();
+		try {
+			rs = dbo.executeQuery(sql2);
+			for (int i = 0; i < (page - 1) * EVERYPAGENUM; i++) {
+				rs.next();
+			}
+			for (int t = 0; t < EVERYPAGENUM; t++) {
+				if (rs.next()) {
+					qq++;
+					List list2=new ArrayList();
+					list2.add(rs.getString(1));
+					list2.add(rs.getString(2));
+					list2.add(rs.getString(3));
+					list2.add(rs.getString(4));
+					list2.add(rs.getString(5));
+					list2.add(rs.getString(6));
+					list2.add(rs.getString(7));
+					list2.add(rs.getString(8));
+					list.add(list2);
+				} else {
+					break; //å‡å°‘ç©ºå¾ªç¯çš„æ—¶é—´
+				}
+			}
+			return list;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return list;
+		} finally {
+			dbo.close();
+		}
+	}
+
 	//add news
 	public int addNews(String title,String fenlei,String content,String adder,String gjz){
 		String sql = "insert into fz_news (title,fenlei,content,addtime,adder,visit,gjz) " +
@@ -96,7 +96,7 @@ public class NewsBean {
 		DBO dbo = new DBO();
 		dbo.open();
 		try{
-			
+
 			int i = dbo.executeUpdate(sql);
 			if(i == 1){
 				return Constant.SUCCESS;
@@ -111,7 +111,7 @@ public class NewsBean {
 			dbo.close();
 		}
 	}
-	
+
 	//update news
 	public int updateNews(int id,String title,String fenlei,String content,String adder,String gjz){
 		String sql = "update fz_news set title = '"+title+"',fenlei = '"+fenlei+"',content='"+content+"',addtime='"+date+"'," +
@@ -140,7 +140,7 @@ public class NewsBean {
 		dbo.open();
 		try{
 			for(int i = 0;i<id.length;i++){
-				dbo.executeUpdate("delete from  fz_news  where  id = '"+id[i]+"'");				
+				dbo.executeUpdate("delete from  fz_news  where  id = '"+id[i]+"'");
 			}
 			return Constant.SUCCESS;
 		}catch(Exception e){
@@ -152,15 +152,15 @@ public class NewsBean {
 	}
 	public void del(String filepath) {
 		try{
-			File f = new File(filepath);//¶¨ÒåÎÄ¼şÂ·¾¶        
-			if(f.exists()){//ÅĞ¶ÏÊÇÎÄ¼ş»¹ÊÇÄ¿Â¼
-			    f.delete();//µİ¹éµ÷ÓÃ
+			File f = new File(filepath);//å®šä¹‰æ–‡ä»¶è·¯å¾„
+			if(f.exists()){//åˆ¤æ–­æ˜¯æ–‡ä»¶è¿˜æ˜¯ç›®å½•
+				f.delete();//é€’å½’è°ƒç”¨
 			}
 		}catch(Exception e){
-			
+
 		}
 	}
-	
+
 	//get one news to update
 	public List getOneNews(int id){
 		String sql = "select * from fz_news where id = '"+id+"'";
@@ -187,7 +187,7 @@ public class NewsBean {
 			dbo.close();
 		}
 	}
-	
+
 	//get news count
 	public int getNewsCount(){
 		String sql = "select count (*) from fz_news ";
@@ -208,17 +208,17 @@ public class NewsBean {
 			dbo.close();
 		}
 	}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
-	//Ê×Ò³10ÌõĞÂÎÅ
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//é¦–é¡µ10æ¡æ–°é—»
 	public List getIndexNews(){
 		//String sql = "select id,type,title,addtime from news where  ifhide='1' order by id desc  limit 0,10";
-		
+
 		String sql = "select id,title,addtime from fz_news  order by id desc  limit 0,10";
 		DBO dbo = new DBO();
 		list = new ArrayList();
 		dbo.open();
 		try{
-			rs = dbo.executeQuery(sql);			
+			rs = dbo.executeQuery(sql);
 			while(rs.next()){
 				List list2 = new ArrayList();
 				list2.add(rs.getString("id"));
@@ -234,7 +234,7 @@ public class NewsBean {
 			dbo.close();
 		}
 	}
-//	Ê×Ò³12ÌõĞÂÎÅ
+	//	é¦–é¡µ12æ¡æ–°é—»
 	public List getIndexNews12(){
 		String sql = "select  id,title,addtime from fz_news where  ifhide='1' order by id desc  limit 0,13";
 		DBO dbo = new DBO();
@@ -261,7 +261,7 @@ public class NewsBean {
 		}
 	}
 
-	//Ç°Ì¨ĞÂÎÅÒ³ĞÂÎÅÁĞ±í
+	//å‰å°æ–°é—»é¡µæ–°é—»åˆ—è¡¨
 	public List getAllNews(){
 		String sql = "select id,title,addtime  from fz_news   order by id desc ";
 		DBO dbo = new DBO();
@@ -310,7 +310,7 @@ public class NewsBean {
 			dbo.close();
 		}
 	}
-//	5ÌõÈÈÃÅĞÂÎÅ
+	//	5æ¡çƒ­é—¨æ–°é—»
 	public List get10HotNews(){
 		String sql = "select  * from fz_news order by visit desc limit 0,10 ";
 		DBO dbo = new DBO();
@@ -337,12 +337,12 @@ public class NewsBean {
 			dbo.close();
 		}
 	}
-//	¸üĞÂµã»÷ÂÊ
+	//	æ›´æ–°ç‚¹å‡»ç‡
 	public int upVisit(int id){
 		DBO dbo = new DBO();
 		dbo.open();
 		try{
-			int i = dbo.executeUpdate("update  fz_news set visit=visit+1  where  id = '"+id+"'");		
+			int i = dbo.executeUpdate("update  fz_news set visit=visit+1  where  id = '"+id+"'");
 			if(i==1){
 				return Constant.SUCCESS;
 			}
@@ -356,12 +356,12 @@ public class NewsBean {
 			dbo.close();
 		}
 	}
-	 
+
 	public int addFenlei(String title){
 		DBO dbo = new DBO();
 		dbo.open();
 		try{
-			int i = dbo.executeUpdate("insert into fenlei(title,addtime) values('"+title+"','"+date+"')");		
+			int i = dbo.executeUpdate("insert into fenlei(title,addtime) values('"+title+"','"+date+"')");
 			if(i==1){
 				return Constant.SUCCESS;
 			}
@@ -379,7 +379,7 @@ public class NewsBean {
 		DBO dbo = new DBO();
 		dbo.open();
 		try{
-			int i = dbo.executeUpdate("delete from fenlei where id='"+id+"'");		
+			int i = dbo.executeUpdate("delete from fenlei where id='"+id+"'");
 			if(i==1){
 				return Constant.SUCCESS;
 			}
@@ -397,7 +397,7 @@ public class NewsBean {
 		DBO dbo = new DBO();
 		dbo.open();
 		try{
-			int i = dbo.executeUpdate(sql);		
+			int i = dbo.executeUpdate(sql);
 			if(i==1){
 				return Constant.SUCCESS;
 			}
@@ -432,7 +432,7 @@ public class NewsBean {
 		}finally{
 			dbo.close();
 		}
-	} 
+	}
 	public List getGuoLv(){
 		String sql = "select* from guolv  order by id asc";
 		DBO dbo = new DBO();
@@ -454,7 +454,7 @@ public class NewsBean {
 		}finally{
 			dbo.close();
 		}
-	} 
+	}
 	public List getPl(String nid){
 		String sql = "select* from pl where nid='"+nid+"'  order by id desc";
 		DBO dbo = new DBO();
@@ -478,52 +478,52 @@ public class NewsBean {
 		}finally{
 			dbo.close();
 		}
-	} 
-	public int getMessageCountSs(String sql) { //µÃµ½ĞÅÏ¢×ÜÊı
-	       DBO dbo=new DBO();
-	       dbo.open();
-	        try { 
-	            rs = dbo.executeQuery(sql);
-	            rs.next();
-	            count = rs.getInt(1);
-	            return count;
-	        } catch (SQLException ex) {
-	            ex.printStackTrace();
-	            return -1;
-	        } finally {
-	            dbo.close();
-	        }
-	    }
-	    
-	    public List getMessageSS(int page,String sql2,int jj) { //µÃµ½Ã¿Ò³ÒªÏÔÊ¾µÄĞÅÏ¢
-	        DBO dbo=new DBO();
-	        dbo.open();
-	        List list = new ArrayList();
-	        try {
-	            rs = dbo.executeQuery(sql2);
-	            for (int i = 0; i < (page - 1) * EVERYPAGENUM; i++) {
-	                rs.next();
-	            }
-	            for (int t = 0; t < EVERYPAGENUM; t++) {
-	                if (rs.next()) {
-	                    qq++;
-	                    List list2=new ArrayList();
-	                    for(int mm=1;mm<=jj;mm++){
-	                    	list2.add(rs.getString(mm));
-	                    }
-	    				list.add(list2);
-	                } else {
-	                    break; //¼õÉÙ¿ÕÑ­»·µÄÊ±¼ä
-	                }
-	            }
-	            return list;
-	        } catch (SQLException ex) {
-	            ex.printStackTrace();
-	            return list;
-	        } finally {
-	            dbo.close();
-	        }
-	    }
-	   
+	}
+	public int getMessageCountSs(String sql) { //å¾—åˆ°ä¿¡æ¯æ€»æ•°
+		DBO dbo=new DBO();
+		dbo.open();
+		try {
+			rs = dbo.executeQuery(sql);
+			rs.next();
+			count = rs.getInt(1);
+			return count;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return -1;
+		} finally {
+			dbo.close();
+		}
+	}
+
+	public List getMessageSS(int page,String sql2,int jj) { //å¾—åˆ°æ¯é¡µè¦æ˜¾ç¤ºçš„ä¿¡æ¯
+		DBO dbo=new DBO();
+		dbo.open();
+		List list = new ArrayList();
+		try {
+			rs = dbo.executeQuery(sql2);
+			for (int i = 0; i < (page - 1) * EVERYPAGENUM; i++) {
+				rs.next();
+			}
+			for (int t = 0; t < EVERYPAGENUM; t++) {
+				if (rs.next()) {
+					qq++;
+					List list2=new ArrayList();
+					for(int mm=1;mm<=jj;mm++){
+						list2.add(rs.getString(mm));
+					}
+					list.add(list2);
+				} else {
+					break; //å‡å°‘ç©ºå¾ªç¯çš„æ—¶é—´
+				}
+			}
+			return list;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return list;
+		} finally {
+			dbo.close();
+		}
+	}
+
 }
 

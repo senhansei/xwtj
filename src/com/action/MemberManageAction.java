@@ -1,20 +1,15 @@
 package com.action;
-
 /**
- * 
- * ÍøÕ¾ºóÌ¨¹ÜÀí×¢²á»áÔ± ²éÑ¯ ¶³½á É¾³ı»áÔ±
- */		
-
-
+ *
+ * ç½‘ç«™åå°ç®¡ç†æ³¨å†Œä¼šå‘˜ æŸ¥è¯¢ å†»ç»“ åˆ é™¤ä¼šå‘˜
+ */
 import java.io.IOException;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.bean.MemberManageBean;
 import com.bean.SystemBean;
 import com.util.Constant;
@@ -40,7 +35,7 @@ public class MemberManageAction extends HttpServlet {
 	 * The doGet method of the servlet. <br>
 	 *
 	 * This method is called when a form has its tag value method equals to get.
-	 * 
+	 *
 	 * @param request the request send by the client to the server
 	 * @param response the response send by the server to the client
 	 * @throws ServletException if an error occurred
@@ -56,7 +51,7 @@ public class MemberManageAction extends HttpServlet {
 	 * The doPost method of the servlet. <br>
 	 *
 	 * This method is called when a form has its tag value method equals to post.
-	 * 
+	 *
 	 * @param request the request send by the client to the server
 	 * @param response the response send by the server to the client
 	 * @throws ServletException if an error occurred
@@ -78,69 +73,69 @@ public class MemberManageAction extends HttpServlet {
 				String method = Filter.escapeHTMLTags(request.getParameter("method").trim());
 				MemberManageBean mmBean = new MemberManageBean();
 				if(method.equals("DELMEMBER")||method.equals("DELCO")||method.equals("DELTODAY")
-						||method.equals("DELALLCLOSE")||method.equals("DELALLUSE")){//É¾³ıÀ´×ÔºóÌ¨¸÷¸öÒ³ÃæµÄ»áÔ±
+						||method.equals("DELALLCLOSE")||method.equals("DELALLUSE")){//åˆ é™¤æ¥è‡ªåå°å„ä¸ªé¡µé¢çš„ä¼šå‘˜
 					String check[] = request.getParameterValues("checkit");
 					if(check == null){
-						if(method.equals("DELMEMBER")){//À´×ÔËùÓĞ¸öÈË»áÔ±Ò³Ãæ
-							request.setAttribute("message", "ÇëÑ¡ÔñÒªÉ¾³ıµÄ¼ÇÂ¼£¡");
+						if(method.equals("DELMEMBER")){//æ¥è‡ªæ‰€æœ‰ä¸ªäººä¼šå‘˜é¡µé¢
+							request.setAttribute("message", "è¯·é€‰æ‹©è¦åˆ é™¤çš„è®°å½•ï¼");
 							request.getRequestDispatcher(sysdir+"/member/person.jsp").forward(request, response);
 						}
-						else if(method.equals("DELCO")){//À´×ÔËùÓĞÆóÒµ»áÔ±Ò³Ãæ
-							request.setAttribute("message", "ÇëÑ¡ÔñÒªÉ¾³ıµÄ¼ÇÂ¼£¡");
+						else if(method.equals("DELCO")){//æ¥è‡ªæ‰€æœ‰ä¼ä¸šä¼šå‘˜é¡µé¢
+							request.setAttribute("message", "è¯·é€‰æ‹©è¦åˆ é™¤çš„è®°å½•ï¼");
 							request.getRequestDispatcher(sysdir+"/member/co.jsp").forward(request, response);
 						}
-						else if(method.equals("DELTODAY")){//À´×Ô½ñÈÕ×¢²á»áÔ±Ò³Ãæ
-							request.setAttribute("message", "ÇëÑ¡ÔñÒªÉ¾³ıµÄ¼ÇÂ¼£¡");
+						else if(method.equals("DELTODAY")){//æ¥è‡ªä»Šæ—¥æ³¨å†Œä¼šå‘˜é¡µé¢
+							request.setAttribute("message", "è¯·é€‰æ‹©è¦åˆ é™¤çš„è®°å½•ï¼");
 							request.getRequestDispatcher(sysdir+"/member/today.jsp").forward(request, response);
 						}
-						else if(method.equals("DELALLCLOSE")){//À´×ÔËùÓĞ¶³½á»áÔ±Ò³Ãæ
-							request.setAttribute("message", "ÇëÑ¡ÔñÒªÉ¾³ıµÄ¼ÇÂ¼£¡");
+						else if(method.equals("DELALLCLOSE")){//æ¥è‡ªæ‰€æœ‰å†»ç»“ä¼šå‘˜é¡µé¢
+							request.setAttribute("message", "è¯·é€‰æ‹©è¦åˆ é™¤çš„è®°å½•ï¼");
 							request.getRequestDispatcher(sysdir+"/member/close.jsp").forward(request, response);
 						}
-						else if(method.equals("DELALLUSE")){//À´×ÔËùÓĞÔÚÓÃ»áÔ±Ò³Ãæ
-							request.setAttribute("message", "ÇëÑ¡ÔñÒªÉ¾³ıµÄ¼ÇÂ¼£¡");
+						else if(method.equals("DELALLUSE")){//æ¥è‡ªæ‰€æœ‰åœ¨ç”¨ä¼šå‘˜é¡µé¢
+							request.setAttribute("message", "è¯·é€‰æ‹©è¦åˆ é™¤çš„è®°å½•ï¼");
 							request.getRequestDispatcher(sysdir+"/member/using.jsp").forward(request, response);
 						}
 					}
 					else{
 						int id[]= new int[check.length];
 						for(int i = 0;i<check.length;i++){
-							int s = Integer.parseInt(check[i]);				
+							int s = Integer.parseInt(check[i]);
 							id[i] = s;
 						}
 						int flag = mmBean.delMember(id);
 						if(flag == Constant.SUCCESS){
-							if(method.equals("DELMEMBER")){//À´×ÔËùÓĞ¸öÈË»áÔ±Ò³Ãæ
+							if(method.equals("DELMEMBER")){//æ¥è‡ªæ‰€æœ‰ä¸ªäººä¼šå‘˜é¡µé¢
 								request.getRequestDispatcher(sysdir+"/member/person.jsp").forward(request, response);
 							}
-							else if(method.equals("DELCO")){//À´×ÔËùÓĞÆóÒµ»áÔ±Ò³Ãæ
+							else if(method.equals("DELCO")){//æ¥è‡ªæ‰€æœ‰ä¼ä¸šä¼šå‘˜é¡µé¢
 								request.getRequestDispatcher(sysdir+"/member/co.jsp").forward(request, response);
 							}
-							else if(method.equals("DELTODAY")){//À´×Ô½ñÈÕ×¢²á»áÔ±Ò³Ãæ
+							else if(method.equals("DELTODAY")){//æ¥è‡ªä»Šæ—¥æ³¨å†Œä¼šå‘˜é¡µé¢
 								request.getRequestDispatcher(sysdir+"/member/today.jsp").forward(request, response);
 							}
-							else if(method.equals("DELALLCLOSE")){//À´×ÔËùÓĞ¶³½á»áÔ±Ò³Ãæ
+							else if(method.equals("DELALLCLOSE")){//æ¥è‡ªæ‰€æœ‰å†»ç»“ä¼šå‘˜é¡µé¢
 								request.getRequestDispatcher(sysdir+"/member/close.jsp").forward(request, response);
 							}
-							else if(method.equals("DELALLUSE")){//À´×ÔËùÓĞÔÚÓÃ»áÔ±Ò³Ãæ
+							else if(method.equals("DELALLUSE")){//æ¥è‡ªæ‰€æœ‰åœ¨ç”¨ä¼šå‘˜é¡µé¢
 								request.getRequestDispatcher(sysdir+"/member/using.jsp").forward(request, response);
 							}
 						}
 						else{
-							if(method.equals("DELMEMBER")){//À´×ÔËùÓĞ¸öÈË»áÔ±Ò³Ãæ
-								 request.getRequestDispatcher(sysdir+"/member/person.jsp").forward(request, response);
+							if(method.equals("DELMEMBER")){//æ¥è‡ªæ‰€æœ‰ä¸ªäººä¼šå‘˜é¡µé¢
+								request.getRequestDispatcher(sysdir+"/member/person.jsp").forward(request, response);
 							}
-							else if(method.equals("DELCO")){//À´×ÔËùÓĞÆóÒµ»áÔ±Ò³Ãæ
-								 request.getRequestDispatcher(sysdir+"/member/co.jsp").forward(request, response);
+							else if(method.equals("DELCO")){//æ¥è‡ªæ‰€æœ‰ä¼ä¸šä¼šå‘˜é¡µé¢
+								request.getRequestDispatcher(sysdir+"/member/co.jsp").forward(request, response);
 							}
-							else if(method.equals("DELTODAY")){//À´×Ô½ñÈÕ×¢²á»áÔ±Ò³Ãæ
-								 request.getRequestDispatcher(sysdir+"/member/today.jsp").forward(request, response);
+							else if(method.equals("DELTODAY")){//æ¥è‡ªä»Šæ—¥æ³¨å†Œä¼šå‘˜é¡µé¢
+								request.getRequestDispatcher(sysdir+"/member/today.jsp").forward(request, response);
 							}
-							else if(method.equals("DELALLCLOSE")){//À´×ÔËùÓĞ¶³½á»áÔ±Ò³Ãæ
-								 request.getRequestDispatcher(sysdir+"/member/close.jsp").forward(request, response);
+							else if(method.equals("DELALLCLOSE")){//æ¥è‡ªæ‰€æœ‰å†»ç»“ä¼šå‘˜é¡µé¢
+								request.getRequestDispatcher(sysdir+"/member/close.jsp").forward(request, response);
 							}
-							else if(method.equals("DELALLUSE")){//À´×ÔËùÓĞÔÚÓÃ»áÔ±Ò³Ãæ
-								 request.getRequestDispatcher(sysdir+"/member/using.jsp").forward(request, response);
+							else if(method.equals("DELALLUSE")){//æ¥è‡ªæ‰€æœ‰åœ¨ç”¨ä¼šå‘˜é¡µé¢
+								request.getRequestDispatcher(sysdir+"/member/using.jsp").forward(request, response);
 							}
 						}
 					}
@@ -149,11 +144,11 @@ public class MemberManageAction extends HttpServlet {
 					String id=request.getParameter("id").trim();
 					int flag=mmBean.closeMember(Integer.parseInt(id));
 					if(flag==Constant.SUCCESS){
-						request.setAttribute("message", "²Ù×÷³É¹¦£¡");
+						request.setAttribute("message", "æ“ä½œæˆåŠŸï¼");
 						request.getRequestDispatcher("admin/member/person.jsp").forward(request, response);
 					}
 					else{
-						request.setAttribute("message", "ÏµÍ³Î¬»¤ÖĞ£¬ÇëÉÔºóÔÙÊÔ£¡");
+						request.setAttribute("message", "ç³»ç»Ÿç»´æŠ¤ä¸­ï¼Œè¯·ç¨åå†è¯•ï¼");
 						request.getRequestDispatcher("admin/member/person.jsp").forward(request, response);
 					}
 				}

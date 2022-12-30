@@ -1,17 +1,17 @@
 package com.util;
 
 /**
- *MD5ÃÜÂë¼ÓÃÜÀà
+ *MD5å¯†ç åŠ å¯†ç±»
  *
  */
 
-import java.security.*; 
-import java.security.spec.*; 
+import java.security.*;
+import java.security.spec.*;
 public final class MD5 {
-	
-	public final static String MD5(String s){ 
-		 
-			return s; 
-		 
+
+	public final static String MD5(String s){
+
+		return s;
+
 	}
 }

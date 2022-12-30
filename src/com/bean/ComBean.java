@@ -9,7 +9,7 @@ import java.util.List;
 
 import com.util.Constant;
 import com.util.DBO;
- 
+
 
 public class ComBean {
 
@@ -18,68 +18,68 @@ public class ComBean {
 	private int EVERYPAGENUM = 2;
 	private int count = -1;
 	private int qq = 0;
-	 
-	//ÉùÃ÷Ê±¼ä±äÁ¿
+
+	//å£°æ˜æ—¶é—´å˜é‡
 	String date1=new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 	String date=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-	
-	//·ÖÒ³²éÑ¯ 
+
+	//åˆ†é¡µæŸ¥è¯¢
 	public void setEVERYPAGENUM(int EVERYPAGENUM){
-    	this.EVERYPAGENUM=EVERYPAGENUM;
-    }
-    public int getMessageCount(String sql) { //µÃµ½ĞÅÏ¢×ÜÊı
-       DBO dbo=new DBO();
-       dbo.open();
-        try { 
-            rs = dbo.executeQuery(sql);
-            rs.next();
-            count = rs.getInt(1);
-            return count;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return -1;
-        } finally {
-            dbo.close();
-        }
-    }
-    public int getPageCount() { //µÃµ½¹²¶àÉÙÒ³£¨¸ù¾İÃ¿Ò³ÒªÏÔÊ¾¼¸ÌõĞÅÏ¢£©
-        if (count % EVERYPAGENUM == 0) {
-            return count / EVERYPAGENUM;
-        } else {
-            return count / EVERYPAGENUM + 1;
-        }
-    }
-    public List getMessage(int page,String sql2,int rr) { //µÃµ½Ã¿Ò³ÒªÏÔÊ¾µÄĞÅÏ¢
-        DBO dbo=new DBO();
-        dbo.open();
-        List list = new ArrayList();
-        try {
-            rs = dbo.executeQuery(sql2);
-            for (int i = 0; i < (page - 1) * EVERYPAGENUM; i++) {
-                rs.next();
-            }
-            for (int t = 0; t < EVERYPAGENUM; t++) {
-                if (rs.next()) {
-                    qq++;
-                    List list2=new ArrayList();
-                    for(int cc=1;cc<=rr;cc++){
-                    	list2.add(rs.getString(cc));
-                    }
-    				list.add(list2);
-                } else {
-                    break; //¼õÉÙ¿ÕÑ­»·µÄÊ±¼ä
-                }
-            }
-            return list;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return null;
-        } finally {
-            dbo.close();
-        }
-    }
-    
-	
+		this.EVERYPAGENUM=EVERYPAGENUM;
+	}
+	public int getMessageCount(String sql) { //å¾—åˆ°ä¿¡æ¯æ€»æ•°
+		DBO dbo=new DBO();
+		dbo.open();
+		try {
+			rs = dbo.executeQuery(sql);
+			rs.next();
+			count = rs.getInt(1);
+			return count;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return -1;
+		} finally {
+			dbo.close();
+		}
+	}
+	public int getPageCount() { //å¾—åˆ°å…±å¤šå°‘é¡µï¼ˆæ ¹æ®æ¯é¡µè¦æ˜¾ç¤ºå‡ æ¡ä¿¡æ¯ï¼‰
+		if (count % EVERYPAGENUM == 0) {
+			return count / EVERYPAGENUM;
+		} else {
+			return count / EVERYPAGENUM + 1;
+		}
+	}
+	public List getMessage(int page,String sql2,int rr) { //å¾—åˆ°æ¯é¡µè¦æ˜¾ç¤ºçš„ä¿¡æ¯
+		DBO dbo=new DBO();
+		dbo.open();
+		List list = new ArrayList();
+		try {
+			rs = dbo.executeQuery(sql2);
+			for (int i = 0; i < (page - 1) * EVERYPAGENUM; i++) {
+				rs.next();
+			}
+			for (int t = 0; t < EVERYPAGENUM; t++) {
+				if (rs.next()) {
+					qq++;
+					List list2=new ArrayList();
+					for(int cc=1;cc<=rr;cc++){
+						list2.add(rs.getString(cc));
+					}
+					list.add(list2);
+				} else {
+					break; //å‡å°‘ç©ºå¾ªç¯çš„æ—¶é—´
+				}
+			}
+			return list;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		} finally {
+			dbo.close();
+		}
+	}
+
+
 	public int comUp(String sql){
 		DBO dbo = new DBO();
 		dbo.open();
@@ -98,7 +98,7 @@ public class ComBean {
 			dbo.close();
 		}
 	}
-	public List getCom(String sql,int row){ 
+	public List getCom(String sql,int row){
 		DBO dbo = new DBO();
 		list = new ArrayList();
 		dbo.open();
@@ -119,7 +119,7 @@ public class ComBean {
 			dbo.close();
 		}
 	}
-	public List get1Com(String sql,int row){ 
+	public List get1Com(String sql,int row){
 		DBO dbo = new DBO();
 		list = new ArrayList();
 		dbo.open();
@@ -138,14 +138,14 @@ public class ComBean {
 			dbo.close();
 		}
 	}
-	public String getString(String sql){ 
+	public String getString(String sql){
 		DBO dbo = new DBO();
 		list = new ArrayList();
 		dbo.open();
 		try{
 			rs = dbo.executeQuery(sql);
 			if(rs.next())
-			return rs.getString(1);
+				return rs.getString(1);
 			else return null;
 		}catch(Exception e){
 			e.printStackTrace();
@@ -154,14 +154,14 @@ public class ComBean {
 			dbo.close();
 		}
 	}
-	public String getString2(String sql){ 
+	public String getString2(String sql){
 		DBO dbo = new DBO();
 		list = new ArrayList();
 		dbo.open();
 		try{
 			rs = dbo.executeQuery(sql);
 			if(rs.next())
-			return rs.getString(1);
+				return rs.getString(1);
 			else return "";
 		}catch(Exception e){
 			e.printStackTrace();

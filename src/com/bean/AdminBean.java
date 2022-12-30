@@ -1,9 +1,9 @@
 package com.bean;
 
 /**
- * 
- * ¹ÜÀíÔ±µÇÂ½ ĞŞ¸ÄÃÜÂë µÇÂ½¼ÇÂ¼²éÑ¯ Í¨ÓÃÀàÎÄ¼ş
- * 
+ *
+ * ç®¡ç†å‘˜ç™»é™† ä¿®æ”¹å¯†ç  ç™»é™†è®°å½•æŸ¥è¯¢ é€šç”¨ç±»æ–‡ä»¶
+ *
  */
 
 import java.sql.ResultSet;
@@ -25,72 +25,72 @@ public class AdminBean {
 	private int qq = 0;
 	private String sql="select count(*) from fz_adminlog";
 	private String sql2="select * from fz_adminlog order by id desc ";
-	//ÉùÃ÷Ê±¼ä±äÁ¿
+	//å£°æ˜æ—¶é—´å˜é‡
 	String date=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-	
-	//·ÖÒ³²éÑ¯µÇÂ½ÈÕÖ¾
+
+	//åˆ†é¡µæŸ¥è¯¢ç™»é™†æ—¥å¿—
 	public void setEVERYPAGENUM(int EVERYPAGENUM){
-    	this.EVERYPAGENUM=EVERYPAGENUM;
-    }
-    public int getMessageCount() { //µÃµ½ĞÅÏ¢×ÜÊı
-       DBO dbo=new DBO();
-       dbo.open();
-        try { 
-            rs = dbo.executeQuery(sql);
-            rs.next();
-            count = rs.getInt(1);
-            return count;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return -1;
-        } finally {
-            dbo.close();
-        }
-    }
-    public int getPageCount() { //µÃµ½¹²¶àÉÙÒ³£¨¸ù¾İÃ¿Ò³ÒªÏÔÊ¾¼¸ÌõĞÅÏ¢£©
-        if (count % EVERYPAGENUM == 0) {
-            return count / EVERYPAGENUM;
-        } else {
-            return count / EVERYPAGENUM + 1;
-        }
-    }
-    public List getMessage(int page) { //µÃµ½Ã¿Ò³ÒªÏÔÊ¾µÄĞÅÏ¢
-        DBO dbo=new DBO();
-        dbo.open();
-        List list = new ArrayList();
-        try {
-            rs = dbo.executeQuery(sql2);
-            for (int i = 0; i < (page - 1) * EVERYPAGENUM; i++) {
-                rs.next();
-            }
-            for (int t = 0; t < EVERYPAGENUM; t++) {
-                if (rs.next()) {
-                    qq++;
-                    List list2=new ArrayList();
-                    list2.add(rs.getString("id"));
-    				list2.add(rs.getString("username"));
-    				list2.add(rs.getString("password"));
-    				list2.add(rs.getString("logintime"));
-    				list2.add(rs.getString("loginip"));
-    				list2.add(rs.getString("useros"));
-    				list2.add(rs.getString("ok"));
-    				list.add(list2);
-                } else {
-                    break; //¼õÉÙ¿ÕÑ­»·µÄÊ±¼ä
-                }
-            }
-            return list;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return null;
-        } finally {
-            dbo.close();
-        }
-    }
-	//¹ÜÀíÔ±µÇÂ¼ ¸üĞÂµÇÂ¼´ÎÊı Ğ´µÇÂ¼ÈÕÖ¾
+		this.EVERYPAGENUM=EVERYPAGENUM;
+	}
+	public int getMessageCount() { //å¾—åˆ°ä¿¡æ¯æ€»æ•°
+		DBO dbo=new DBO();
+		dbo.open();
+		try {
+			rs = dbo.executeQuery(sql);
+			rs.next();
+			count = rs.getInt(1);
+			return count;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return -1;
+		} finally {
+			dbo.close();
+		}
+	}
+	public int getPageCount() { //å¾—åˆ°å…±å¤šå°‘é¡µï¼ˆæ ¹æ®æ¯é¡µè¦æ˜¾ç¤ºå‡ æ¡ä¿¡æ¯ï¼‰
+		if (count % EVERYPAGENUM == 0) {
+			return count / EVERYPAGENUM;
+		} else {
+			return count / EVERYPAGENUM + 1;
+		}
+	}
+	public List getMessage(int page) { //å¾—åˆ°æ¯é¡µè¦æ˜¾ç¤ºçš„ä¿¡æ¯
+		DBO dbo=new DBO();
+		dbo.open();
+		List list = new ArrayList();
+		try {
+			rs = dbo.executeQuery(sql2);
+			for (int i = 0; i < (page - 1) * EVERYPAGENUM; i++) {
+				rs.next();
+			}
+			for (int t = 0; t < EVERYPAGENUM; t++) {
+				if (rs.next()) {
+					qq++;
+					List list2=new ArrayList();
+					list2.add(rs.getString("id"));
+					list2.add(rs.getString("username"));
+					list2.add(rs.getString("password"));
+					list2.add(rs.getString("logintime"));
+					list2.add(rs.getString("loginip"));
+					list2.add(rs.getString("useros"));
+					list2.add(rs.getString("ok"));
+					list.add(list2);
+				} else {
+					break; //å‡å°‘ç©ºå¾ªç¯çš„æ—¶é—´
+				}
+			}
+			return list;
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+			return null;
+		} finally {
+			dbo.close();
+		}
+	}
+	//ç®¡ç†å‘˜ç™»å½• æ›´æ–°ç™»å½•æ¬¡æ•° å†™ç™»å½•æ—¥å¿—
 	public int adminLogin(String username,String md5password,String password,String loginip,String useros){
 		String sql = "select * from fz_admin where username = '"+username+"' and isuse='1'";
-	//	String sql2 = "insert into fz_adminlog(username,password,logintime,loginip,useros,ok) values('"+username+"','"+md5password+"','"+date+"','"+loginip+"','"+useros+"','true')";
+		//	String sql2 = "insert into fz_adminlog(username,password,logintime,loginip,useros,ok) values('"+username+"','"+md5password+"','"+date+"','"+loginip+"','"+useros+"','true')";
 		//String sql3 = "insert into fz_adminlog(username,password,logintime,loginip,useros,ok) values('"+username+"','"+password+"','"+date+"','"+loginip+"','"+useros+"','false')";
 		String sql4 = "update fz_admin set logintimes = logintimes+1 where username = '"+username+"' ";
 		DBO dbo = new DBO();
@@ -113,16 +113,16 @@ public class AdminBean {
 			else{
 				//dbo.executeUpdate(sql3);
 				return Constant.NAME_ERROR;
-			}			
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 			return Constant.SYSTEM_ERROR;
 		}finally{
 			dbo.close();
-		}	
+		}
 	}
-	
-	//²éÑ¯¹ÜÀíÔ±ĞÅÏ¢
+
+	//æŸ¥è¯¢ç®¡ç†å‘˜ä¿¡æ¯
 	public List getAdminInfo(String username){
 		String sql = "select * from fz_admin where username='"+username+"' ";
 		DBO dbo = new DBO();
@@ -144,7 +144,7 @@ public class AdminBean {
 			dbo.close();
 		}
 	}
-	
+
 	//admin edit password
 	public int editPassword(String username,String oldpwd,String newpwd){
 		String sql="select * from fz_admin where username = '"+username+"' and password = '"+oldpwd+"'";
@@ -172,7 +172,7 @@ public class AdminBean {
 			dbo.close();
 		}
 	}
-	
+
 	//add manager
 	public int addManager(String username,String password,String type,String isuse){
 		String sql = "insert into fz_admin(username,password,creattime,flag,isuse,logintimes,quanxian) values('"+username+"','"+password+"','"+date+"','"+type+"','"+isuse+"','0','111')";
@@ -196,7 +196,7 @@ public class AdminBean {
 			dbo.close();
 		}
 	}
-	
+
 	//update manager
 	public int updateManager(String username,String password,String type,String isuse){
 		String sql;
@@ -219,7 +219,7 @@ public class AdminBean {
 			dbo.close();
 		}
 	}
-	
+
 	//get all manager
 	public List getAllManager(){
 		String sql = "select * from fz_admin where flag !='1' order by id asc";
@@ -246,7 +246,7 @@ public class AdminBean {
 			dbo.close();
 		}
 	}
-	
+
 	//delete manager
 	public int delManager(int id){
 		String sql = "delete from fz_admin where id = '"+id+"'";
@@ -263,14 +263,14 @@ public class AdminBean {
 			dbo.close();
 		}
 	}
-	
+
 	//delete login note
 	public int delLog(int id[]){
 		DBO dbo=new DBO();
 		dbo.open();
 		try{
 			for(int i = 0;i<id.length;i++){
-				dbo.executeUpdate("delete from  fz_adminlog  where  id = '"+id[i]+"'");			
+				dbo.executeUpdate("delete from  fz_adminlog  where  id = '"+id[i]+"'");
 			}
 			return Constant.SUCCESS;
 		}catch(Exception e){

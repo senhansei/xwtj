@@ -10,7 +10,7 @@ import com.util.Constant;
 import com.util.DBO;
 
 /**
- * ÍøÕ¾¹«¸æ¡¢Õ¾ÄÚµ÷²ébean  »áÔ±ÖĞĞÄ¹«¸æ
+ * ç½‘ç«™å…¬å‘Šã€ç«™å†…è°ƒæŸ¥bean  ä¼šå‘˜ä¸­å¿ƒå…¬å‘Š
  * @author Administrator
  *
  */
@@ -19,8 +19,8 @@ public class AfficheBean {
 	private ResultSet rs;
 	private List list;
 	private String date=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
-	
-	//Ôö¼Ó¹«¸æ
+
+	//å¢åŠ å…¬å‘Š
 	public int addAffiche(String title,String content,String adder,String ifhide){
 		String sql = "insert into fz_affiche (title,content,addtime,adder,ifhide) " +
 				"values ('"+title+"','"+content+"','"+date+"','"+adder+"','"+ifhide+"')";
@@ -41,7 +41,7 @@ public class AfficheBean {
 			dbo.close();
 		}
 	}
-//	update affiche
+	//	update affiche
 	public int updateAffiche(int id,String title,String content,String adder,String ifhide){
 		String sql = "update fz_affiche set title = '"+title+"',content='"+content+"',addtime='"+date+"'," +
 				"adder='"+adder+"',ifhide='"+ifhide+"' where id = '"+id+"' ";
@@ -62,14 +62,14 @@ public class AfficheBean {
 			dbo.close();
 		}
 	}
-	
+
 	//delete affiche
 	public int delAffiche(int id[]){
 		DBO dbo = new DBO();
 		dbo.open();
 		try{
 			for(int i = 0;i<id.length;i++){
-				dbo.executeUpdate("delete from  fz_affiche  where  id = '"+id[i]+"'");			
+				dbo.executeUpdate("delete from  fz_affiche  where  id = '"+id[i]+"'");
 			}
 			return Constant.SUCCESS;
 		}catch(Exception e){
@@ -79,7 +79,7 @@ public class AfficheBean {
 			dbo.close();
 		}
 	}
-	
+
 	//open.close affiche
 	public int hideAffiche(int id){
 		String sql = "update fz_affiche set ifhide='1' where id='"+id+"'";
@@ -136,7 +136,7 @@ public class AfficheBean {
 			dbo.close();
 		}
 	}
-	//Ê×Ò³ÏÔÊ¾ËùÓĞ¹«¸æ
+	//é¦–é¡µæ˜¾ç¤ºæ‰€æœ‰å…¬å‘Š
 	public List getAllAffiche(){
 		String sql = "select id,content,addtime from fz_affiche where ifhide='1' order by addtime desc ";
 		DBO dbo = new DBO();
@@ -159,7 +159,7 @@ public class AfficheBean {
 			dbo.close();
 		}
 	}
-//	ºóÌ¨ÏÔÊ¾ËùÓĞ¹«¸æ
+	//	åå°æ˜¾ç¤ºæ‰€æœ‰å…¬å‘Š
 	public List getAllAfficheManage(){
 		String sql = "select id,title,addtime,adder,ifhide from fz_affiche order by addtime desc ";
 		DBO dbo = new DBO();
@@ -184,5 +184,5 @@ public class AfficheBean {
 			dbo.close();
 		}
 	}
-  
+
 }

@@ -1,6 +1,6 @@
 package com.util;
 /**
- * 验证码生成类
+ * 楠岃瘉鐮佺敓鎴愮被
  */
 import java.util.Random;
 
@@ -10,9 +10,9 @@ public class CheckCode {
 		Random random = new Random();
 		String sRand="";
 		for (int i=0;i<4;i++){
-	    String rand=String.valueOf(random.nextInt(10));
-	    sRand+=rand;
+			String rand=String.valueOf(random.nextInt(10));
+			sRand+=rand;
 		}
-	    return sRand;
+		return sRand;
 	}
 }

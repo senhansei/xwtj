@@ -1,8 +1,8 @@
 package com.action;
 
 /**
- * Ç°Ì¨»áÔ±µÇÂ½ ÍË³ö
- * 
+ * å‰å°ä¼šå‘˜ç™»é™† é€€å‡º
+ *
  */
 
 import java.io.IOException;
@@ -38,7 +38,7 @@ public class LoginAction extends HttpServlet {
 	 * The doGet method of the servlet. <br>
 	 *
 	 * This method is called when a form has its tag value method equals to get.
-	 * 
+	 *
 	 * @param request the request send by the client to the server
 	 * @param response the response send by the server to the client
 	 * @throws ServletException if an error occurred
@@ -54,7 +54,7 @@ public class LoginAction extends HttpServlet {
 	 * The doPost method of the servlet. <br>
 	 *
 	 * This method is called when a form has its tag value method equals to post.
-	 * 
+	 *
 	 * @param request the request send by the client to the server
 	 * @param response the response send by the server to the client
 	 * @throws ServletException if an error occurred
@@ -68,13 +68,13 @@ public class LoginAction extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemberBean memberBean = new MemberBean();
 		String method = Filter.escapeHTMLTags(request.getParameter("method").trim());
-		if(method.equals("HEADUSERLOGIN")){//ÍøÒ³Í·²¿»áÔ±µÇÂ½
+		if(method.equals("HEADUSERLOGIN")){//ç½‘é¡µå¤´éƒ¨ä¼šå‘˜ç™»é™†
 			String reg_user = Filter.escapeHTMLTags(request.getParameter("reg_user").trim());
 			String reg_pwd = Filter.escapeHTMLTags(request.getParameter("reg_pwd").trim());
 			String reg_type = Filter.escapeHTMLTags(request.getParameter("reg_type").trim());
 			String lastip = request.getRemoteAddr();
 			int flag = memberBean.memberLogin(reg_user, reg_pwd, reg_type);
-			if(flag == Constant.SUCCESS){//µÇÂ½³É¹¦
+			if(flag == Constant.SUCCESS){//ç™»é™†æˆåŠŸ
 				String info = memberBean.getLastTimeIP(reg_user);
 				int flag2 = memberBean.upmemberLogin(reg_user, lastip);
 				if(flag2 == Constant.SUCCESS){
@@ -87,28 +87,28 @@ public class LoginAction extends HttpServlet {
 					session.setAttribute("member", reg_user);
 					session.setAttribute("type", reg_type);
 					session.setAttribute("info", info);
-					session.setAttribute("message", "µÇÂ½³É¹¦£¬µÇÂ½ĞÅÏ¢¸üĞÂÊ§°Ü£¡");
+					session.setAttribute("message", "ç™»é™†æˆåŠŸï¼Œç™»é™†ä¿¡æ¯æ›´æ–°å¤±è´¥ï¼");
 					request.getRequestDispatcher("login1.jsp").forward(request, response);
 				}
 			}
-			else if(flag == Constant.NAME_ERROR){//ÓÃ»§Ãû´íÎó
+			else if(flag == Constant.NAME_ERROR){//ç”¨æˆ·åé”™è¯¯
 				request.setAttribute("reg_user", reg_user);
-				request.setAttribute("message", "¸ÃÓÃ»§Ãû²»´æÔÚ»òÕßÒÑ±»¹ÜÀíÔ±¶³½á£¡");
+				request.setAttribute("message", "è¯¥ç”¨æˆ·åä¸å­˜åœ¨æˆ–è€…å·²è¢«ç®¡ç†å‘˜å†»ç»“ï¼");
 				request.getRequestDispatcher("login1.jsp").forward(request, response);
 			}
-			else if(flag == Constant.PASSWORD_ERROR){//ÃÜÂë´íÎó
+			else if(flag == Constant.PASSWORD_ERROR){//å¯†ç é”™è¯¯
 				request.setAttribute("reg_user", reg_user);
-				request.setAttribute("message", "ÃÜÂë´íÎó£¡");
+				request.setAttribute("message", "å¯†ç é”™è¯¯ï¼");
 				request.getRequestDispatcher("login1.jsp").forward(request, response);
 			}
 		}
-		else if(method.equals("PAGEUSERLOGIN")){//µÇÂ½Ò³Ãæ»áÔ±µÇÂ½
+		else if(method.equals("PAGEUSERLOGIN")){//ç™»é™†é¡µé¢ä¼šå‘˜ç™»é™†
 			String username = Filter.escapeHTMLTags(request.getParameter("username").trim());
 			String password = Filter.escapeHTMLTags(request.getParameter("password").trim());
 			String reg_type = Filter.escapeHTMLTags(request.getParameter("reg_type").trim());
 			String lastip = request.getRemoteAddr();
 			int flag = memberBean.memberLogin(username, password, reg_type);
-			if(flag == Constant.SUCCESS){//µÇÂ½³É¹¦
+			if(flag == Constant.SUCCESS){//ç™»é™†æˆåŠŸ
 				String info = memberBean.getLastTimeIP(username);
 				int flag2 = memberBean.upmemberLogin(username, lastip);
 				if(flag2 == Constant.SUCCESS){
@@ -121,27 +121,27 @@ public class LoginAction extends HttpServlet {
 					session.setAttribute("member", username);
 					session.setAttribute("type", reg_type);
 					session.setAttribute("info", info);
-					session.setAttribute("message", "µÇÂ½³É¹¦£¬µÇÂ½ĞÅÏ¢¸üĞÂÊ§°Ü£¡");
+					session.setAttribute("message", "ç™»é™†æˆåŠŸï¼Œç™»é™†ä¿¡æ¯æ›´æ–°å¤±è´¥ï¼");
 					request.getRequestDispatcher("member/index.jsp").forward(request, response);
 				}
 			}
-			else if(flag == Constant.NAME_ERROR){//ÓÃ»§Ãû´íÎó
+			else if(flag == Constant.NAME_ERROR){//ç”¨æˆ·åé”™è¯¯
 				request.setAttribute("reg_user", username);
-				request.setAttribute("message", "¸ÃÓÃ»§Ãû²»´æÔÚ£¡");
+				request.setAttribute("message", "è¯¥ç”¨æˆ·åä¸å­˜åœ¨ï¼");
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 			}
-			else if(flag == Constant.PASSWORD_ERROR){//ÃÜÂë´íÎó
+			else if(flag == Constant.PASSWORD_ERROR){//å¯†ç é”™è¯¯
 				request.setAttribute("reg_user", username);
-				request.setAttribute("message", "ÃÜÂë´íÎó£¡");
+				request.setAttribute("message", "å¯†ç é”™è¯¯ï¼");
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 			}
 		}
-		else if(method.equals("logout")){//´ÓiframeÒ³ÃæÍË³öµÇÂ½
+		else if(method.equals("logout")){//ä»iframeé¡µé¢é€€å‡ºç™»é™†
 			session.removeAttribute("member");
 			session.removeAttribute("type");
 			request.getRequestDispatcher("login1.jsp").forward(request, response);
 		}
-		else if(method.equals("pagelogout")||method.equals("memberexit")){//´ÓÍøÒ³ÍË³öµÇÂ½
+		else if(method.equals("pagelogout")||method.equals("memberexit")){//ä»ç½‘é¡µé€€å‡ºç™»é™†
 			session.removeAttribute("member");
 			session.removeAttribute("type");
 			request.getRequestDispatcher("index.jsp").forward(request, response);

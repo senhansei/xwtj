@@ -1,18 +1,18 @@
 package com.util;
 
 /**
- * ³£ÓÃ·½·¨Àà
- * 
- * 
+ * å¸¸ç”¨æ–¹æ³•ç±»
+ *
+ *
  */
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public final class Common {
-	////////////×Ö·û´® HTML ×ª»»
+	////////////å­—ç¬¦ä¸² HTML è½¬æ¢
 	public static String turn(String str) {
-	
+
 		while (str.indexOf("\n") != -1) {
 			str = str.substring(0, str.indexOf("\n")) + "<br>"
 					+ str.substring(str.indexOf("\n") + 1);
@@ -23,49 +23,49 @@ public final class Common {
 		}
 		return str;
 	}
-	
-	/////////////·µ»ØÈÕÆÚ  µ±Ç°ÈÕÆÚ´«Èë0  Ò»ÄêÖ®Ç°´«Èë-1 ÈıÄêºó´«Èë3
+
+	/////////////è¿”å›æ—¥æœŸ  å½“å‰æ—¥æœŸä¼ å…¥0  ä¸€å¹´ä¹‹å‰ä¼ å…¥-1 ä¸‰å¹´åä¼ å…¥3
 	public static String getDate(int num){
-	
+
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Calendar c = Calendar.getInstance();
 		c.add(Calendar.YEAR, num);
-		
+
 		return df.format(c.getTime());
 	}
-	
-	/////////////Êı¾İ¿âÊä³ö×Ö·û´®µÄ¹ıÂË
+
+	/////////////æ•°æ®åº“è¾“å‡ºå­—ç¬¦ä¸²çš„è¿‡æ»¤
 	public static String SQLStr(String str){
-	
+
 		if(str != null && str.length()>1 && str.substring(0,1).equals("?")){
 			str = str.substring(1);
 		}
-				
+
 		if(str == null || str.equals("") || str.equals(" ")){
 			str = "&nbsp;";
 		}
 		return str;
-	} 
-	/////////////¹ıÂË¿Õ¸ñ
+	}
+	/////////////è¿‡æ»¤ç©ºæ ¼
 	public static String PageStr(String str){
-	
+
 		if(str==null || str.trim().equals("") || str.equals(" ")||str.equals("null")){
 			str = "";
 		}
 		str = str.trim();
 		return str;
 	}
-	/////////////¸ñÊ½»¯ÈÕÆÚ	
+	/////////////æ ¼å¼åŒ–æ—¥æœŸ
 	public static String formatRZ(String oldDate){
-	
+
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		Date Date = new Date(oldDate);
 		return df.format(Date);
 	}
-	
-	////////////ºº»¯
+
+	////////////æ±‰åŒ–
 	public static String toChineseAndTrim(String str){
-	
+
 		if(str==null){
 			str="";
 		}

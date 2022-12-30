@@ -1,19 +1,17 @@
 package com.action;
 
 /**
- * ÍøÕ¾¹«¸æ
+ * ç½‘ç«™å…¬å‘Š
  * @author Administrator
  *
  */
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import com.bean.AfficheBean;
 import com.bean.SystemBean;
 import com.util.Constant;
@@ -40,7 +38,7 @@ public class AfficheServlet extends HttpServlet {
 	 * The doGet method of the servlet. <br>
 	 *
 	 * This method is called when a form has its tag value method equals to get.
-	 * 
+	 *
 	 * @param request the request send by the client to the server
 	 * @param response the response send by the server to the client
 	 * @throws ServletException if an error occurred
@@ -56,7 +54,7 @@ public class AfficheServlet extends HttpServlet {
 	 * The doPost method of the servlet. <br>
 	 *
 	 * This method is called when a form has its tag value method equals to post.
-	 * 
+	 *
 	 * @param request the request send by the client to the server
 	 * @param response the response send by the server to the client
 	 * @throws ServletException if an error occurred
@@ -77,22 +75,22 @@ public class AfficheServlet extends HttpServlet {
 			else{
 				AfficheBean afficheBean = new AfficheBean();
 				String method = request.getParameter("method").trim();
-				if(method.equals("addAffiche")){//Ôö¼Ó¹«¸æ
+				if(method.equals("addAffiche")){//å¢åŠ å…¬å‘Š
 					String title = Filter.escapeHTMLTags(request.getParameter("title").trim());
 					String content = Filter.escapeHTMLTags(request.getParameter("content").trim());
 					String adder = username2;
 					String ifhide = Filter.escapeHTMLTags(request.getParameter("ifhide").trim());
 					int flag = afficheBean.addAffiche(title, content, adder, ifhide);
 					if(flag == Constant.SUCCESS){
-						request.setAttribute("message", "²Ù×÷³É¹¦£¡");
+						request.setAttribute("message", "æ“ä½œæˆåŠŸï¼");
 						request.getRequestDispatcher(sysdir+"/affiche/index.jsp").forward(request, response);
 					}
 					else{
-						request.setAttribute("message", "ÏµÍ³Î¬»¤ÖĞÇëÉÔºóÔÙÊÔ£¡");
+						request.setAttribute("message", "ç³»ç»Ÿç»´æŠ¤ä¸­è¯·ç¨åå†è¯•ï¼");
 						request.getRequestDispatcher(sysdir+"/affiche/index.jsp").forward(request, response);
 					}
 				}
-				else if(method.equals("editAffiche")){//ĞŞ¸Ä¹«¸æ
+				else if(method.equals("editAffiche")){//ä¿®æ”¹å…¬å‘Š
 					String id=Filter.escapeHTMLTags(request.getParameter("id").trim());
 					String title = Filter.escapeHTMLTags(request.getParameter("title").trim());
 					String content = Filter.escapeHTMLTags(request.getParameter("content").trim());
@@ -100,11 +98,11 @@ public class AfficheServlet extends HttpServlet {
 					String ifhide = Filter.escapeHTMLTags(request.getParameter("ifhide").trim());
 					int flag = afficheBean.updateAffiche(Integer.parseInt(id), title, content, adder, ifhide);
 					if(flag == Constant.SUCCESS){
-						request.setAttribute("message", "²Ù×÷³É¹¦£¡");
+						request.setAttribute("message", "æ“ä½œæˆåŠŸï¼");
 						request.getRequestDispatcher(sysdir+"/affiche/index.jsp").forward(request, response);
 					}
 					else{
-						request.setAttribute("message", "ÏµÍ³Î¬»¤ÖĞÇëÉÔºóÔÙÊÔ£¡");
+						request.setAttribute("message", "ç³»ç»Ÿç»´æŠ¤ä¸­è¯·ç¨åå†è¯•ï¼");
 						request.getRequestDispatcher(sysdir+"/affiche/index.jsp").forward(request, response);
 					}
 				}
@@ -115,20 +113,20 @@ public class AfficheServlet extends HttpServlet {
 						request.getRequestDispatcher(sysdir+"/affiche/index.jsp").forward(request, response);
 					}
 					else{
-						request.setAttribute("message", "ÏµÍ³Î¬»¤ÖĞ£¬ÇëÉÔºóÔÙÊÔ£¡");
+						request.setAttribute("message", "ç³»ç»Ÿç»´æŠ¤ä¸­ï¼Œè¯·ç¨åå†è¯•ï¼");
 						request.getRequestDispatcher(sysdir+"/affiche/index.jsp").forward(request, response);
 					}
 				}
-				else if(method.equals("delaffiche")){//É¾³ı¹«¸æ
+				else if(method.equals("delaffiche")){//åˆ é™¤å…¬å‘Š
 					String check[] = request.getParameterValues("checkit");
 					if(check == null){
-						request.setAttribute("message", "ÇëÑ¡ÔñÒªÉ¾³ıµÄ¼ÇÂ¼£¡");
+						request.setAttribute("message", "è¯·é€‰æ‹©è¦åˆ é™¤çš„è®°å½•ï¼");
 						request.getRequestDispatcher(sysdir+"/affiche/index.jsp").forward(request, response);
 					}
 					else{
 						int id[]= new int[check.length];
 						for(int i = 0;i<check.length;i++){
-							int s = Integer.parseInt(check[i]);				
+							int s = Integer.parseInt(check[i]);
 							id[i] = s;
 						}
 						int flag = afficheBean.delAffiche(id);
@@ -136,7 +134,7 @@ public class AfficheServlet extends HttpServlet {
 							request.getRequestDispatcher(sysdir+"/affiche/index.jsp").forward(request, response);
 						}
 						else{
-							request.setAttribute("message", "ÏµÍ³Î¬»¤ÖĞ£¬ÇëÉÔºóÔÙÊÔ£¡");
+							request.setAttribute("message", "ç³»ç»Ÿç»´æŠ¤ä¸­ï¼Œè¯·ç¨åå†è¯•ï¼");
 							request.getRequestDispatcher(sysdir+"/affiche/index.jsp").forward(request, response);
 						}
 					}
