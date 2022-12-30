@@ -1,5 +1,4 @@
 package com.util;
-
 import java.sql.*;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -17,94 +16,96 @@ public class DBO {
 
 	private Connection conn;
 	private Statement stmt;
-  	private DataSource ds;
-	
+	private DataSource ds;
+
 	public DBO()
 	{
 	}
 
 	/**
-		???????
-	*/
-	public void open() 
+	 打开数据库
+	 */
+	public void open()
 	{
-		try 
+		try
 		{
-			Class.forName("com.mysql.jdbc.Driver"); 
+			Class.forName("com.mysql.jdbc.Driver");
 			conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/xwtj?useUnicode=true&characterEncoding=utf8","root","root");
 			stmt=conn.createStatement();
-			System.out.println("???????????");
-		} 
-		catch (Exception ex) 
+			System.out.println("打开数据库连接");
+		}
+		catch (Exception ex)
 		{
-		System.err.println("????????????: " + ex.getMessage());
+			System.err.println("打开数据库时出错: " + ex.getMessage());
 		}
 	}
 
 	/**
-		????????????????????????
-	*/
-	public void close() 
+	 关闭数据库，将连接返还给连接池
+	 */
+	public void close()
 	{
-		try 
+		try
 		{
-		
-				
-		//	connMgr.freeConnection("java", conn);
+
+
+			//	connMgr.freeConnection("java", conn);
 			conn.close();
-			System.out.println ("???????");
-		} 
-		catch (SQLException ex) 
+			System.out.println ("释放连接");
+		}
+		catch (SQLException ex)
 		{
-			System.err.println("????????????: " + ex.getMessage());
+			System.err.println("返还连接池出错: " + ex.getMessage());
 		}
 	}
 
 	/**
-		?????
-	*/
+	 执行查询
+	 */
 	public ResultSet executeQuery(String sql) throws SQLException
 	{
 		ResultSet rs = null;
+
+
 		rs = stmt.executeQuery(sql);
-		System.out.println ("?????");
+		System.out.println ("执行查询");
 		return rs;
 	}
 
 	/**
-		????????
-	*/
+	 执行增删改
+	 */
 	public int executeUpdate(String sql) throws SQLException
 	{
 		int ret = 0;
-		
-	
+
+
 		ret = stmt.executeUpdate(sql);
-	
-		System.out.println ("????????");
+
+		System.out.println ("执行增删改");
 		return ret;
 	}
 
 	/**
-		??SQL????????????
-	*/
-	public void addBatch(String sql) throws SQLException 
+	 将SQL语句加入到批处理
+	 */
+	public void addBatch(String sql) throws SQLException
 	{
 		stmt.addBatch(sql);
 	}
 
 	/**
-		?????????
-	*/
-	public int [] executeBatch() throws SQLException 
+	 执行批处理
+	 */
+	public int [] executeBatch() throws SQLException
 	{
 		boolean isAuto=conn.getAutoCommit();
-		
+
 		conn.setAutoCommit(false);
 		int [] updateCounts = stmt.executeBatch();
-		
+
 //		conn.commit();
-		
+
 //		conn.setAutoCommit(isAuto);
 		//conn.setAutoCommit(true);
 		return updateCounts;
@@ -113,20 +114,20 @@ public class DBO {
 	{
 		return conn.getAutoCommit();
 	}
-	public void setAutoCommit(boolean auto)  throws SQLException 
+	public void setAutoCommit(boolean auto)  throws SQLException
 	{
 		conn.setAutoCommit(auto);
 	}
-	
-	public void commit() throws SQLException 
+
+	public void commit() throws SQLException
 	{
 		conn.commit();
 //		this.close();
 	}
-	public void rollBack() throws SQLException 
+	public void rollBack() throws SQLException
 	{
 		conn.rollback();
 //		this.close();
 	}
-	
+
 }
